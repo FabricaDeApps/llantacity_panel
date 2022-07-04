@@ -1,0 +1,36 @@
+<div class="main-container">
+    <mat-toolbar color="primary" class="topbar telative" *ngIf="cookieService.check('isLogin')">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="text-align: center !important; display: block;">
+                <img style="text-align: center !important; padding-top: 10px;" src="" id="logoHeader" class="light-logo img-fluid " alt="homepage">
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <span fxShow="false" fxShow.gt-xs>
+                 <!-- Logo text -->   
+                 <!-- <span style="color: white; text-align: center; font-weight: bold; font-size: initial;">ExperCo</span> -->
+                </span> </a>
+        </div>
+
+        <button mat-icon-button *ngIf="cookieService.check('isLogin')" (click)="snav.toggle()" value="sidebarclosed">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+        <span class="text-header" id="nameCliente" >
+            </span>                       
+        <span fxFlex></span>
+        <app-header></app-header>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="cookieService.check('isLogin')" [disableClose]="mobileQuery.matches">
+            <!--SideBar-->
+            <app-sidebar></app-sidebar>
+        </mat-sidenav>
+        <mat-sidenav-content class="page-wrapper" id="layout">
+            <div class="page-content">
+                <router-outlet>
+                    <app-spinner></app-spinner>
+                </router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

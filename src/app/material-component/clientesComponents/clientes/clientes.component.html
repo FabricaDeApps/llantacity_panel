@@ -1,0 +1,65 @@
+<loading *ngIf="isLoading"></loading>
+<div fxFlex.gt-sm="100%">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Lista de clientes
+                <button matTooltip="Crear nuevo cliente" routerLink="/clientes/nuevo" class="button-add" mat-raised-button color="accent">
+                    <mat-icon class="color_amar">add_box</mat-icon> <span>Añadir</span>
+                </button>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="empty-data mat-elevation-z8" *ngIf="clientes.length == 0 && isLoaded">
+                <br>
+                <h3>Aún no has creado ningún cliente </h3>
+                <button class="buttons-actions empty-button" routerLink="/clientes/nuevo" mat-flat-button color="primary" type="submit"><span>Añadir <b>Cliente</b></span> </button>
+            </div>
+            <div class="example-container mat-elevation-z8" *ngIf="clientes.length > 0">
+                <mat-table [dataSource]="clientes">
+
+                    <ng-container matColumnDef="image">
+                        <mat-header-cell *matHeaderCellDef> Imagen </mat-header-cell>
+                        <mat-cell data-label="Imagen" *matCellDef="let element"> <img class="img-logo" src="{{serverImages}}{{element.hash_client}}/{{element.logo}}" alt="producto"> </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+                        <mat-cell data-label="Cliente" *matCellDef="let element"> {{element.client}} </mat-cell>
+                    </ng-container>
+  
+                    <ng-container matColumnDef="global">
+                        <mat-header-cell *matHeaderCellDef> Global </mat-header-cell>
+                        <mat-cell data-label="Global" *matCellDef="let element">
+                            <mat-checkbox color="primary" matTooltip="Setear cliente global"
+                                [checked]="checkClientGlobal(element)"
+                                (change)="openDialogGlobalClient(element)">
+                            </mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                        <mat-cell data-label="Acciones" *matCellDef="let element">
+                            <mat-checkbox color="primary" matTooltip="Activar o desactivar" (change)="dialogChangeStatusCliente($event, element)" [checked]="element.active">
+                            </mat-checkbox>
+
+                            <button mat-icon-button color="accent" matTooltip="Editar o ver datos" [routerLink]="['/clientes/editar/', element.hash_client]">
+                                <mat-icon class="mat-18 material-icons color_green">border_color</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="accent" matTooltip="Eliminar" (click)="openDialogDelete(element)">
+                                <mat-icon class="mat-18 material-icons color_red">delete</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>
+</div>

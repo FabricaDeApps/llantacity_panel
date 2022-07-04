@@ -1,0 +1,27 @@
+<!-- <h1 mat-dialog-title>
+    {{title}}
+</h1>
+ -->
+<button mat-icon-button class="close-button" (click)="onDismiss()" matTooltip="{{textTooltip}}" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<mat-dialog-content style="text-align: center;">
+    <span class="material-icons size-icon">
+        thumb_up
+    </span>
+    <div class="margenes">
+        <div>
+            <span class="titulo">{{message}}</span>
+
+        </div>
+        <div>
+            <span class="subtitulo">Felicidades! {{subtitle}}</span>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<div mat-dialog-actions align="center" class="margen">
+    <button mat-raised-button color="primary" (click)="onDismiss()" class="alert-ok-new"><span>{{spanCancell}} <b>{{buttonCancell}}</b></span></button>
+    <button mat-raised-button color="primary" class="alert-ok-new" (click)="onConfirm()"><span>{{spanAcept}} <b>{{buttonAccept}}</b></span></button>
+</div>

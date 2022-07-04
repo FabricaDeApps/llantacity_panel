@@ -1,0 +1,441 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~animate.css/animate.min";
+html {
+    overflow: hidden;
+}
+
+.text-header{
+    color: white;
+    font-size: small;
+    float: right;  
+    white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;  
+      margin-left: 10px;
+}
+
+.mat-drawer-inner-container {    
+    height: 80% !important;
+}
+::-webkit-scrollbar {
+    display: none !important;
+    }
+:root {
+    --botones-color: #ffcd2b;
+    --botones-cancel: #df421a;
+    --botones-new: #161C2E;
+}
+
+
+.sub-titulo {
+    margin-top: 3px !important;
+    color: white !important;
+}
+
+.change-client {
+    margin-left: 5px !important;
+    background-color: var(--botones-color) !important;
+}
+
+mat-card-header{
+    background: var(--botones-new) !important;    
+}
+
+mat-card-title{
+    color: white !important;
+}
+
+mat-card-subtitle{
+    color: white !important;
+}
+
+mat-form-field{
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.sub-data {
+    margin-top: 3px !important;
+    color: black !important;
+}
+
+.change-version {
+    margin-left: 5px !important;
+    background-color: var(--botones-new) !important;
+}
+
+.size-icon {
+    font-size: 8em;
+    color: var(--botones-color) !important;
+}
+
+.login-wrapper .login-btn {
+    padding: 13px 20px;
+    background-color: var(--botones-color) !important;
+    border-radius: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 14px;
+    margin-top: 6px;
+    border-radius: 85px !important;
+}
+
+.login-wrapper .login-btn:hover {
+    border: 1px solid var(--botones-new) !important;
+    background-color: #fff !important;
+    color: black !important;
+}
+
+.textoHeader {
+    color: var(--botones-new) !important;
+}
+
+
+/* boton de close modal */
+
+.material-icons.color_white {
+    color: #ffffff !important;
+}
+
+.close-button {
+    float: right !important;
+    position: absolute !important;
+    top: 0px !important;
+    right: 0px !important;
+}
+
+.close-icon {
+    transition: 1s ease-in-out !important;
+}
+
+.close-icon:hover {
+    transform: rotate(180deg) !important;
+}
+
+::ng-deep .icon-outside .close-button {
+    float: right !important;
+    top: -52px !important;
+    right: -52px !important;
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+    overflow: unset !important;
+}
+
+
+/* boton de close modal */
+
+
+/* commun */
+
+.mat-drawer.mat-drawer-side {
+    z-index: 0 !important;
+}
+
+
+.cancelar {
+    font-size: 1.2rem !important;    
+}
+
+.buttons-actions {
+    /* width: 50% !important; */
+    min-width: unset !important;
+    background-color: var(--botones-color) !important;
+    font-size: 1.2rem !important;
+    border-radius: 85px !important;
+    margin-left: 5px !important;
+}
+
+.buttons-cancelar {
+    min-width: unset !important;
+    background-color: var(--botones-new) !important;
+    font-size: 1.2rem !important;
+    border-radius: 85px !important;
+    margin-left: 5px !important;
+}
+
+.button-add {
+    float: right;
+    background-color: var(--botones-color) !important;
+    border-radius: 85px !important;
+}
+
+.button-compare {
+    background-color: var(--botones-new) !important;
+    border-radius: 85px !important;
+}
+
+.alert-ok {
+    background-color: var(--botones-color) !important;
+    border-radius: 85px !important;
+    margin-bottom: 3px !important;
+}
+
+.alert-cancel {
+    background-color: var(--botones-cancel) !important;
+    border-radius: 85px !important;
+    margin-bottom: 3px !important;
+}
+
+.alert-ok-new {
+    background-color: var(--botones-color) !important;
+    border-radius: 85px !important;
+    margin-bottom: 3px !important;
+}
+
+mat-card-title {
+    color: rgb(57, 57, 57);
+    font-weight: bold;
+}
+
+.empty-data {
+    text-align: center;
+    border-width: 3px;
+    border-style: dotted dashed solid double;
+    border-color: #161C2E;
+}
+
+.empty-button {
+    margin-top: 50px !important;
+    margin-bottom: 10px !important;
+}
+
+
+/* commun */
+
+
+/* mat card y tabla responsiva */
+
+@media screen and (max-width: 1024px) {
+    .mat-table {
+        border: 0;
+        vertical-align: middle
+    }
+    .mat-table caption {
+        font-size: 1em;
+    }
+    /*  Enable this to hide header  */
+    .mat-table .mat-header-cell {
+        border: 10px solid;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    .mat-table .mat-row {
+        border-bottom: 5px solid #ddd;
+        display: block;
+    }
+    /*
+        .mat-table .mat-row:nth-child(even) {background: #CCC}
+        .mat-table .mat-row:nth-child(odd) {background: #FFF}
+        */
+    .mat-table .mat-cell {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .85em;
+        text-align: right;
+        height: auto;
+        margin-bottom: 4%;
+    }
+    .mat-table .mat-cell:before {
+        /*
+          * aria-label has no advantage, it won't be read inside a table
+          content: attr(aria-label);
+          */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold !important;
+        color: black;
+        /*   text-transform: uppercase; */
+        font-weight: normal;
+        font-size: .85em;
+    }
+    .mat-table .mat-cell:last-child {
+        border-bottom: 0;
+    }
+    .mat-table .mat-cell:first-child {
+        margin-top: 4%;
+    }
+    mat-cell:first-of-type {
+        padding-left: 0px !important;
+    }
+    mat-cell:last-of-type {
+        padding-right: 0px !important;
+    }
+}
+
+.mat-header-row,
+.mat-row {
+    display: flex;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 24px;
+}
+
+.mat-header-cell {
+    font-weight: bold !important;
+    color: black !important;
+    font-size: 14px !important;
+}
+
+.mat-sort-header-container {
+    display: flex;
+    cursor: pointer;
+}
+
+mat-card-header {
+    display: flow-root !important;
+}
+
+.mat-checkbox-inner-container-no-side-margin {
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+
+/* mat card y tabla responsiva */
+
+.img-fluid {
+    height: auto !important;
+    max-height: 70px !important;
+    max-width: 100% !important;
+    width: auto !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+
+/* botones */
+
+button:focus {
+    outline: none !important;
+    outline-style: none !important;
+}
+
+.mat-icon-button:hover {
+    background-color: #efebe6 !important;
+}
+
+.mat-button:hover {
+    background-color: #efebe6 !important;
+}
+
+button:focus {
+    outline: none !important;
+    outline-style: none !important;
+}
+
+.mat-button-focus-overlay {
+    background-color: transparent!important;
+}
+
+
+/* botones */
+
+.mat-tab-body-content {
+    overflow: hidden !important;
+}
+
+.snackbarsuccess {
+    background-color: rgb(55, 167, 61) !important;
+    color: white !important
+}
+
+.snackbarerror {
+    background-color: rgb(202, 54, 54) !important;
+    color: white !important
+}
+
+.snackbarwarn {
+    color: white !important;
+    background-color: #FF8800 !important;
+    border-color: #ffeeba !important;
+}
+
+.mat-simple-snackbar-action button {
+    color: white !important;
+}
+
+.color_orange {
+    color: rgb(226, 150, 8) !important;
+}
+
+.color_blue {
+    color: var(--botones-color) !important;
+}
+
+.color_red {
+    color: var(--botones-cancel) !important;
+}
+
+.color_excel {
+    color: rgb(81, 190, 81) !important;
+}
+
+.color_green {
+    color: var(--botones-color) !important;
+}
+
+.color_question {
+    color: var(--botones-new) !important;
+}
+
+.img-logo {
+    height: auto;
+    width: 50px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid rgba(195, 207, 216, 0.3);
+}
+
+
+.avatar-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 50px auto;
+}
+
+.avatar-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+}
+
+.label-edit {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #ffcd2b;
+    color: white;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all .2s ease-in-out;
+}
+
+.label-edit:hover {
+    background: #ffcd2b;
+    ;
+    border-color: #d6d6d6;
+}
+
+.icon-label {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+}

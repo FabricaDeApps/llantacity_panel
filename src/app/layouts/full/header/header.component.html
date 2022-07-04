@@ -1,0 +1,10 @@
+<button matTooltip="Mi perfil y cerrar sesión" *ngIf="cookieService.check('isLogin')" [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5"> <img src="assets/images/users/1.png" alt="user" class="profile-pic"> </button>
+<mat-menu #profile="matMenu" class="mymegamenu">
+    <!--<button mat-menu-item> <mat-icon>notifications_off</mat-icon> Disable notifications </button>-->
+    <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>account_box</mat-icon> Mi perfil
+    </button>
+    <button mat-menu-item (click)="cerrarSesion()">
+        <mat-icon>exit_to_app</mat-icon>Cerrar Sesión
+    </button>
+</mat-menu>

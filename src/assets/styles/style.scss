@@ -1,0 +1,126 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+
+/**
+ * Table Of Content
+ *
+ * 	1. Globals
+ *	2. Headers
+ *	3. Navigations
+ *	4. Banners
+ *	5. Footers
+ *	6. app
+ *	7. Widgets
+ *	8. Custom Templates
+ */
+
+@import 'variable';
+@import 'spinner';
+@import 'app';
+@import 'header';
+@import 'pages';
+@import 'sidebar';
+@import 'responsive';
+mat-nav-list.list-horizontal {
+    padding: 0;
+    .mat-list-item {
+        display: inline-block;
+        height: auto;
+        width: auto;
+    }
+}
+
+mat-sidenav{
+    transition: 0.2s all !important
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    .mat-table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        display: table;
+        border-collapse: collapse;
+        margin: 0px;
+    }
+    .mat-row,
+    .mat-header-row {
+        display: table-row;
+    }
+    .mat-cell,
+    .mat-header-cell {
+        word-wrap: initial;
+        display: table-cell;
+        padding: 0px 5px;
+        line-break: unset;
+        width: auto;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+}
+
+.material-icons.color_blue {
+    color: $themecolor-blue;
+}
+
+.material-icons.color_red {
+    color: $themecolor-alt;
+}
+
+.btn-danger {
+    background-color: $themecolor-alt !important;
+    border-color: $themecolor-alt !important
+}
+
+.btn-outline-secondary {
+    color: $themecolor-alt;
+    border-color: $themecolor-alt;
+}
+
+.btn-outline-secondary:hover {
+    color: white;
+    background-color: $themecolor-alt;
+    border-color: $themecolor-alt;
+}
+
+.btn-success {
+    background-color: $themecolor-blue !important;
+    border-color: $themecolor-blue !important;
+}
+
+.btn-outline-warning {
+    color: $themecolor-blue !important;
+    border-color: $themecolor-blue !important;
+}
+
+.btn-outline-warning:hover {
+    background-color: $themecolor-blue !important;
+    color: white !important;
+    border-color: $themecolor-blue !important;
+}
+
+.btn-outline-success {
+    color: $themecolor-blue !important;
+    border-color: $themecolor-blue !important;
+}
+
+.btn-outline-success:hover {
+    background-color: $themecolor-blue !important;
+    color: white !important;
+    border-color: $themecolor-blue !important;
+}
+
+.mat-toolbar.mat-primary {
+    background: $themecolor-alt !important;
+    color: white;
+}
+

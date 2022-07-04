@@ -1,0 +1,32 @@
+<!-- <h1 mat-dialog-title>
+    {{title}}
+</h1>
+ -->
+
+<button mat-icon-button class="close-button" (click)="onDismiss()" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+
+<div mat-dialog-content>
+    <p>{{message}}</p>
+    <div>
+        <strong>
+            {{title}}
+        </strong>
+
+        <br>
+        <strong *ngIf="subtitle !== ''">
+            {{subtitle}}
+        </strong>
+
+        <br>
+        <strong *ngIf="subtitle1 !== ''">
+            {{subtitle1}}
+        </strong>
+    </div>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="onDismiss()" class="alert-cancel">Cancelar</button>
+    <button mat-raised-button color="primary" class="alert-ok" (click)="onConfirm()">Aceptar</button>
+</div>

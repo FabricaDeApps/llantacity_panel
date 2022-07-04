@@ -1,0 +1,27 @@
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+
+<mat-nav-list appAccordion *ngIf="cookieService.check('isLogin')" >
+    <!-- <h5 style="color: white; text-align: center; font-weight: bold;">Mi Restaurante</h5> -->
+    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.link}}">
+        <a class="" appAccordionToggle [routerLink]="['/', menuitem.link]" *ngIf="menuitem.type === 'link' && checkRol(menuitem) && menuitem.active == 1">
+            <mat-icon>{{ menuitem.icon }}</mat-icon> 
+            <span>{{ menuitem.name }}</span> 
+            <span fxFlex></span> 
+            <!-- <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>  -->
+        </a>
+
+        
+    </mat-list-item>
+    <!-- <div style="border-width: 2px; border-style: dotted; border-color: #FF6178; margin-bottom: 10px; margin-top: 5px;"></div> -->
+
+
+
+</mat-nav-list>
+<h1 style="bottom: 20px; color: white; position: absolute;">
+    <div class="" style="text-align: center;">
+        <p style="font-size: medium;">Powered By:</p>
+        <a><img class="img-fluid" src="./assets/images/logo.png" style="text-align: center; max-width: 60% !important;" alt="logo"></a>        
+    </div>
+</h1>

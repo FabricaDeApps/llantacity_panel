@@ -1,0 +1,9 @@
+ [
+    { "link": "dashboard", "name": "Inicio", "type": "link", "icon": "home", "rol": "Cliente"},
+    { "link": "list-polls-client", "name": "Encuestasss", "type": "link", "icon": "home", "rol": "Cliente"},
+    { "link": "clientes", "name": "Clientes", "type": "link", "icon": "contacts", "rol": "SuperAdmin"},
+    { "link": "usuarios", "name": "Usuarios", "type": "link", "icon": "group", "rol": "SuperAdmin"},
+    { "link": "encuestas", "name": "Encuestasss", "type": "link", "icon": "view_week", "rol": "SuperAdmin"},
+    { "link": "preguntas", "name": "Preguntas", "type": "link", "icon": "help", "rol": "SuperAdmin"},
+    { "link": "respuestas", "name": "Respuestas", "type": "link", "icon": "question_answer", "rol": "SuperAdmin"}
+]

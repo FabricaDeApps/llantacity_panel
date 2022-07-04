@@ -1,0 +1,50 @@
+<loading *ngIf="isLoading"></loading>
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-sm-6 login-section-wrapper">
+            <div class="" style="text-align: center;">
+                <a><img class="img-fluid" src="./assets/images/logo.png" style="text-align: center;" alt="logo"></a>
+                <!-- <a href="https://amedit.net" target="_blank"><img src="./assets/images/logotipo.png" hre style="width: 25%; float: right;" alt="logo"></a> -->
+            </div>
+            <div class="login-wrapper my-auto">
+                <h1 class="login-title">Iniciar Sesión</h1>
+                <form [formGroup]="userForm" (ngSubmit)="login()" novalidate>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field class="email" >
+                                <input matInput placeholder="Email" type="email" required name="email" formControlName="email">
+
+                                <mat-error *ngIf="userForm.get('email').hasError('required')">
+                                    El email es requerido.
+                                </mat-error>
+
+                                <mat-error *ngIf="userForm.get('email').hasError('pattern')">
+                                    Ingresa un email valido.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12" style="margin-top: 15px">
+                            <mat-form-field class="password">
+                                <input matInput type="password" placeholder="Contraseña" required name="password" formControlName="password">
+
+                                <mat-error *ngIf="userForm.get('password').hasError('required')">
+                                    La contraseña es requerida.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Iniciar Sesión">
+
+                    </div>
+
+                </form>
+
+            </div>
+            <!-- <span style="font-size: 12px; text-align: center;">¿Eres un administrador? <a style="color: blue; cursor: pointer;" (click)="goToLoginInstructor()">Iniciar Sesión</a> </span> -->
+            <span style="font-size: 14px; text-align: center;">Powered By: <a target="_blank" href="https://llantacity.mx/" style="cursor: pointer; color: white !important;">LlantaCity</a> </span>
+        </div>
+        <div class="col-sm-6 px-0 d-none d-sm-block">
+            <img src="./assets/images/slider.jpg" alt="login image" class="login-img">
+        </div>
+    </div>
+</div>

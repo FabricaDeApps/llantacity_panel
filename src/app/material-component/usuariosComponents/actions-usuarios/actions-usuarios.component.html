@@ -1,0 +1,108 @@
+<loading *ngIf="isLoading"></loading>
+<div fxFlex.gt-sm="100%">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{titulo}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{subtitulo}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+
+            <br>
+            <h4>Cliente: {{cliente}}</h4>
+            <br>
+            <form [formGroup]="formUsuario" (ngSubmit)="addOrUpdateCliente()" novalidate class="example-form"
+                autocomplete="off">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Email" type="text" maxlength="255" formControlName="email"
+                                required autocomplete="new-text">
+                            <mat-error *ngIf="formUsuario.get('email').hasError('required')">
+                                El email es requerido
+                            </mat-error>
+
+                            <mat-error *ngIf="formUsuario.get('email').hasError('pattern')">
+                                Ingresa un email valido.
+                            </mat-error>
+                            <mat-error *ngIf="formUsuario.get('email').hasError('maxlength')">
+                                La longitud máxima es de 255 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 margin-div-input" *ngIf="!isUpdate">
+                        <mat-form-field>
+                            <input matInput placeholder="Contraseña" type="password" maxlength="200"
+                                formControlName="password" required autocomplete="new-password">
+                            <mat-error *ngIf="formUsuario.get('password').hasError('required')">
+                                La contraseña es requerida.
+                            </mat-error>
+                            <mat-error *ngIf="formUsuario.get('password').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres.
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 ">
+                        <mat-form-field>
+                            <input matInput placeholder="Nombre" type="text" maxlength="250" formControlName="name"
+                                required autocomplete="new-text">
+                            <mat-error *ngIf="formUsuario.get('name').hasError('maxlength')">
+                                La longitud máxima es de 250 caracteres.
+                            </mat-error>
+
+                            <mat-error *ngIf="formUsuario.get('name').hasError('required')">
+                                El nombre es requerido.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 ">
+                        <mat-form-field>
+                            <input matInput placeholder="Apellidos" type="text" maxlength="250"
+                                formControlName="lastName" required autocomplete="new-text">
+                            <mat-error *ngIf="formUsuario.get('lastName').hasError('maxlength')">
+                                La longitud máxima es de 250 caracteres.
+                            </mat-error>
+
+                            <mat-error *ngIf="formUsuario.get('lastName').hasError('required')">
+                                Los apellidos son requeridos.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Selecciona un rol</mat-label>
+                            <mat-select formControlName="rol" required>
+                                <mat-option *ngFor="let rol of roles" [value]="rol.id_rol">
+                                    {{rol.rol}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formUsuario.get('rol').hasError('required')">
+                                El rol es requerido.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <br>
+                    <div style="text-align: center;">
+                        <button mat-raised-button color="primary" type="button" *ngIf="isUpdate"
+                            (click)="getUsuarioById()" class="buttons-cancelar"><span>Cancelar cambios</span></button>
+                        <button class="buttons-actions" mat-flat-button color="primary"
+                            type="submit"><span>{{botonAccion}} <b>Usuario</b></span> </button>
+                    </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
