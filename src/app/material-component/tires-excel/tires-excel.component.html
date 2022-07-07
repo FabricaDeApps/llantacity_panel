@@ -1,0 +1,43 @@
+<loading *ngIf="isLoading">
+</loading>
+<div fxFlex.gt-sm="100%">
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        Actualizar registros de llantas
+                    </mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="col-12">
+                        <button class="button-load" mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+                            <mat-icon>newspaper</mat-icon>
+                            <span> Seleccione el archivo</span>
+                            <input #fileInput type="file" id="excel" accept=".xlsx" (change)="onChangeFileInput()" style="display:none;" />
+                          </button>
+
+                          <p class="file-name" id="fileName">Ningún archivo seleccionado.</p>
+                    </div>
+                    <br>
+                    <div class="col-12" *ngIf="isLoadFile">
+                        <button class="button-upload" mat-raised-button color="primary" type="button" (click)="uploadFile()">
+                            <mat-icon>publish</mat-icon>
+                            <span> Subir archivo</span>
+                          </button>
+
+                          <button class="button-restart ml-3" mat-raised-button color="primary" type="button" (click)="resetData()">
+                            <mat-icon>restart_alt</mat-icon>
+                            <span> Reiniciar</span>
+                          </button>
+                    </div>
+
+                </mat-card-content>
+
+            </mat-card>
+        </div>
+    </div>
+
+
+</div>

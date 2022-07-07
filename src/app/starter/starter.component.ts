@@ -61,39 +61,15 @@ export class StarterComponent implements OnInit {
     this.loginService.loginUsers(body).subscribe(
       response => {
         if (response.header.code == 200) {
-          if (response.data.rolName.toString() == "ValetParking") {
-            this.commonAlerts.showWarnning("El rol de usuario no es valido para ingresar al panel de administración.")
-          }
-          if (response.data.rolName.toString() == "SuperAdmin") {
+          console.warn(response.data)
+          if (response.data.type.toString() == "SuperAdmin") {
+            console.warn("aqui")
             var logo = this.EncrDecr.set(this.constantService.encript, 'assets/images/logo.png')
             var cliente = this.EncrDecr.set(this.constantService.encript, 'LlantaCity Administrador')
-            this.setearDatos(response, logo, cliente)
-            this.cookieService.set("idClient", this.EncrDecr.set(this.constantService.encript, this.constantService.encriptClient));
-            this.cookieService.set("hashClient", this.EncrDecr.set(this.constantService.encript, this.constantService.encriptClient));
-            this.router.navigate(['/clientes']);
+            this.setearDatos(response, logo, cliente)            
+            this.router.navigate(['/tires']);
             this.addOrRemoveClass()
-          } if (response.data.rolName.toString() == "Cliente") {
-            var logo = this.EncrDecr.set(this.constantService.encript, this.constantService.serverImages + response.data.hashClient + "/" + response.data.logo.toString())
-            var cliente = this.EncrDecr.set(this.constantService.encript, response.data.cliente.toString())
-            this.setearDatos(response, logo, cliente)
-            var idClientEncrypyed = this.EncrDecr.set(this.constantService.encript, response.data.idClient.toString())            
-            this.cookieService.set('idClient', idClientEncrypyed)
-            this.cookieService.set("hashClient", this.EncrDecr.set(this.constantService.encript, this.constantService.encriptClient));            
-            this.router.navigate(['/dashboard']);
-            this.addOrRemoveClass()
-          } if (response.data.rolName.toString() == "ValetAdmin") {
-            var logo = this.EncrDecr.set(this.constantService.encript, this.constantService.serverImages + response.data.hashClient + "/" + response.data.logo.toString())
-            var cliente = this.EncrDecr.set(this.constantService.encript, response.data.cliente.toString())
-            this.setearDatos(response, logo, cliente)
-            var idClientEncrypyed = this.EncrDecr.set(this.constantService.encript, response.data.idClient.toString())
-            var hashClientEncrypyed = this.EncrDecr.set(this.constantService.encript, response.data.hashClient.toString())            
-            this.cookieService.set('idClient', idClientEncrypyed)
-            this.cookieService.set("hashClient", hashClientEncrypyed);            
-            this.router.navigate(['/corteValet']);
-            this.addOrRemoveClass()
-          }
-
-
+          } 
         } else {
           this.commonAlerts.showWarnning(response.header.message)
         }
@@ -107,13 +83,13 @@ export class StarterComponent implements OnInit {
   }
 
 
-  setearDatos(response, logo, cliente) {
+  setearDatos(response: any, logo: any, cliente: any) {
     this.cookieService.set('logo', logo)
     this.cookieService.set('cliente', cliente)
     this.cookieService.set('isLogin', "true");
-    var hashUser = this.EncrDecr.set(this.constantService.encript, response.data.hashAdmin.toString());
+    var hashUser = this.EncrDecr.set(this.constantService.encript, response.data.hash_admin);
     this.cookieService.set('hashUser', hashUser);
-    var rolEncrypted = this.EncrDecr.set(this.constantService.encript, response.data.rolName.toString());
+    var rolEncrypted = this.EncrDecr.set(this.constantService.encript, response.data.type.toString());
     this.cookieService.set('rol', rolEncrypted)
   }
 

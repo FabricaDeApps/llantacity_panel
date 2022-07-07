@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as menu from "../../../assets/json/menu.json";
-import { CommonAlerts } from '../../common-alerts';
-import { MenuService } from '../../providers/menu-service/menu.service';
 export interface Menu {
   link: string;
   name: string;
@@ -11,35 +8,16 @@ export interface Menu {
   active: boolean;
 }
 
-const MENUITEMS = (menu as any).default;
-
 @Injectable()
 export class MenuItems {
-  menu: Menu[] = []
-  constructor(private menuService: MenuService, private common: CommonAlerts){
-    this.getMenuDinamico()
+  menu: Menu[] = [
+    { link: "tires", name: 'Llantas', type: 'link', icon: 'minor_crash', rol: 'SuperAdmin', active: true },
+    { link: "dashboard", name: 'Inicio', type: 'link', icon: 'dashboard', rol: 'SuperAdmin', active: true },
+    { link: "clientes", name: 'Clientes', type: 'link', icon: 'contacts', rol: 'SuperAdmin', active: true }]
+  constructor() {
   }
-
-  /* getMenuitem(): Menu[] {
-    return MENUITEMS;
-  } */
 
   getMenuitem(): Menu[] {
     return this.menu;
   }
-
-  getMenuDinamico() {
-    this.menuService.getMenuDinamico().subscribe(
-      (response) => {
-        if (response.header.code == 200) {      
-          this.menu = response.data
-        } else {
-          this.common.showWarnning(response.header.message)
-        }
-      }, (error) => {
-        this.common.showToastError(error)
-      }
-    )
-  }
-
 }

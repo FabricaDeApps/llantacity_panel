@@ -21,11 +21,25 @@ html {
     display: none !important;
     }
 :root {
-    --botones-color: #ffcd2b;
+    --botones-color: #efbc16;
     --botones-cancel: #df421a;
     --botones-new: #161C2E;
 }
 
+.button-load {
+    background-color: var(--botones-new) !important;
+    border-radius: 85px !important;
+}
+
+.button-upload {
+    background-color: var(--botones-color) !important;
+    border-radius: 85px !important;
+}
+
+.button-restart {
+    background-color: var(--botones-cancel) !important;
+    border-radius: 85px !important;
+}
 
 .sub-titulo {
     margin-top: 3px !important;
@@ -416,7 +430,7 @@ button:focus {
     height: 34px;
     margin-bottom: 0;
     border-radius: 100%;
-    background: #ffcd2b;
+    background: #efbc16;
     color: white;
     border: 1px solid transparent;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
@@ -426,7 +440,7 @@ button:focus {
 }
 
 .label-edit:hover {
-    background: #ffcd2b;
+    background: #efbc16;
     ;
     border-color: #d6d6d6;
 }

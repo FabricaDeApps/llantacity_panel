@@ -12,7 +12,7 @@ export class LoginServiceProvider {
     }
 
     loginUsers(body: any): Observable<any> {
-        return this.httpClient.post(this.constantServiceProvider.server + "users/login", body, this.constantServiceProvider.getHeadersNew()).pipe(
+        return this.httpClient.post(this.constantServiceProvider.server + "admin/login", body, this.constantServiceProvider.getHeadersNew()).pipe(
             catchError(this.handleErrors.handleError)
         );
     }

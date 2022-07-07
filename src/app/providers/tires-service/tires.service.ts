@@ -8,13 +8,15 @@ import { ConstantServiceProvider } from '../constant-service/constant-service';
 @Injectable({
   providedIn: 'root'
 })
-export class MenuService {
+export class TiresService {
+
   constructor(public httpClient: HttpClient, private constantServiceProvider: ConstantServiceProvider, private handleErrors: CommonAlerts) {
   }
 
-  getMenuDinamico(): Observable<any> {
-    return this.httpClient.get(this.constantServiceProvider.server + "menu/", this.constantServiceProvider.getHeadersNew()).pipe(
+  uploadExcelTires(formData: FormData): Observable<any> {
+    return this.httpClient.post(this.constantServiceProvider.server + "tires/importTires", formData, this.constantServiceProvider.getHeadersImage()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }
+
 }

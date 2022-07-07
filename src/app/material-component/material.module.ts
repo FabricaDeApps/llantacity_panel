@@ -14,11 +14,10 @@ import { MaterialRoutes } from './material.routing';
 import { CurrencyInputMaskDirective } from '../clases/currency-input-mask.directive';
 import { ProfileComponent } from './profile/profile.component';
 import { LoadingComponent } from '../loading';
-import { ClientesComponent } from './clientesComponents/clientes/clientes.component';
-import { ActionsClientesComponent } from './clientesComponents/actions-clientes/actions-clientes.component';
 import { UsuariosComponent } from './usuariosComponents/usuarios/usuarios.component';
 import { ActionsUsuariosComponent } from './usuariosComponents/actions-usuarios/actions-usuarios.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TiresExcelComponent } from './tires-excel/tires-excel.component';
 
 @NgModule({
   imports: [
@@ -30,13 +29,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     FlexLayoutModule,
     NgxSpinnerModule,
-    CdkTableModule   
+    CdkTableModule
   ],
   entryComponents: [],
   declarations: [
     CurrencyInputMaskDirective,
-    ProfileComponent, LoadingComponent, ClientesComponent, ActionsClientesComponent, UsuariosComponent,
-    ActionsUsuariosComponent
+    ProfileComponent, LoadingComponent, UsuariosComponent,
+    ActionsUsuariosComponent,
+    TiresExcelComponent
   ],
   exports: [
     LoadingComponent, RouterModule, NgxSpinnerModule
