@@ -11,9 +11,8 @@ export interface Menu {
 @Injectable()
 export class MenuItems {
   menu: Menu[] = [
-    { link: "tires", name: 'Llantas', type: 'link', icon: 'minor_crash', rol: 'SuperAdmin', active: true },
-    { link: "dashboard", name: 'Inicio', type: 'link', icon: 'dashboard', rol: 'SuperAdmin', active: true },
-    { link: "clientes", name: 'Clientes', type: 'link', icon: 'contacts', rol: 'SuperAdmin', active: true }]
+    { link: "tires", name: 'Llantas', type: 'link', icon: 'minor_crash', rol: 'SuperAdmin', active: true }
+  ]
   constructor() {
   }
 

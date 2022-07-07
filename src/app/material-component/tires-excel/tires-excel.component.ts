@@ -1,6 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EncrDecrService } from '../../clases/EncrDecrService';
 import { CommonAlerts } from '../../common-alerts';
 import { TiresService } from '../../providers/tires-service/tires.service';
+import { Download } from '../../_helpers/download';
 declare var $: any
 @Component({
   selector: 'app-tires-excel',
@@ -10,9 +14,13 @@ declare var $: any
 export class TiresExcelComponent implements OnInit {
   isLoading: boolean = false
   isLoadFile: boolean = false
-  constructor(private comonAlerts: CommonAlerts, private tiresService: TiresService) { }
+  download$: Observable<Download>;
+  constructor(private comonAlerts: CommonAlerts, private tiresService: TiresService, 
+    private encrDecrip: EncrDecrService, private datePipe: DatePipe) { }
 
   ngOnInit() {
+    $('#logoHeader').attr('src', this.encrDecrip.decriptValue('logo'));
+    $('#nameCliente').text(this.encrDecrip.decriptValue('cliente'));
   }
 
   onChangeFileInput(): void {
@@ -64,4 +72,24 @@ export class TiresExcelComponent implements OnInit {
     $("#excel").val(null);
     $("#fileName").text('Ningún archivo seleccionado.');
   }
+
+  
+  getExcel() {
+    this.loadSpinner()
+    this.tiresService.getDateActual().subscribe((response: any) => {
+      if (response.header.code == 200) {        
+        this.download$ = this.tiresService.download("LlantaCityMxReg-" + response.data.fecha);
+        this.terminateSpinner()
+      } else {
+        this.comonAlerts.showWarnning(response.header.message)
+        this.terminateSpinner()
+      }
+      
+    }, (error) => {
+      this.comonAlerts.showToastError(error)
+      this.terminateSpinner()
+    });
+    
+  }
+
 }

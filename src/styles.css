@@ -180,6 +180,11 @@ mat-form-field{
     border-radius: 85px !important;
 }
 
+.button-download {
+    background-color: rgb(81, 190, 81) !important;
+    border-radius: 85px !important;
+}
+
 .alert-ok {
     background-color: var(--botones-color) !important;
     border-radius: 85px !important;

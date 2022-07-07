@@ -12,29 +12,53 @@
 
                 <mat-card-content>
                     <div class="col-12">
-                        <button class="button-load" mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+                        <button class="button-load" mat-raised-button color="primary" type="button"
+                            (click)="fileInput.click()">
                             <mat-icon>newspaper</mat-icon>
                             <span> Seleccione el archivo</span>
-                            <input #fileInput type="file" id="excel" accept=".xlsx" (change)="onChangeFileInput()" style="display:none;" />
-                          </button>
+                            <input #fileInput type="file" id="excel" accept=".xlsx" (change)="onChangeFileInput()"
+                                style="display:none;" />
+                        </button>
 
-                          <p class="file-name" id="fileName">Ningún archivo seleccionado.</p>
+                        <p class="file-name" id="fileName">Ningún archivo seleccionado.</p>
                     </div>
                     <br>
                     <div class="col-12" *ngIf="isLoadFile">
-                        <button class="button-upload" mat-raised-button color="primary" type="button" (click)="uploadFile()">
+                        <button class="button-upload" mat-raised-button color="primary" type="button"
+                            (click)="uploadFile()">
                             <mat-icon>publish</mat-icon>
                             <span> Subir archivo</span>
-                          </button>
+                        </button>
 
-                          <button class="button-restart ml-3" mat-raised-button color="primary" type="button" (click)="resetData()">
+                        <button class="button-restart ml-3" mat-raised-button color="primary" type="button"
+                            (click)="resetData()">
                             <mat-icon>restart_alt</mat-icon>
                             <span> Reiniciar</span>
-                          </button>
+                        </button>
                     </div>
 
                 </mat-card-content>
 
+            </mat-card>
+
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        Descargar registros de llantas
+                        <mat-progress-bar style="display: none;" *ngIf="download$ | async as download"
+                            [mode]="download.state == 'PENDING' ? 'buffer' : 'determinate'" [value]="download.progress">
+                        </mat-progress-bar>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="col-12">
+                        <button class="button-download" mat-raised-button color="primary" type="button"
+                            (click)="getExcel()">
+                            <mat-icon>downloading</mat-icon>
+                            <span> Descargar archivo Excel</span>
+                        </button>
+                    </div>
+                </mat-card-content>
             </mat-card>
         </div>
     </div>
