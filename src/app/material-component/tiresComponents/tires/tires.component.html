@@ -1,0 +1,68 @@
+<loading *ngIf="isLoading"></loading>
+<div fxFlex.gt-sm="100%">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Lista de productos
+                <button matTooltip="Crear nuevo producto" *ngIf="isLoaded"  routerLink="/productos/nuevo" class="button-add" mat-raised-button color="accent">
+                    <mat-icon class="color_amar">add_box</mat-icon> <span>Añadir</span>
+                </button>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="empty-data mat-elevation-z8" *ngIf="productos.length == 0 && isLoaded">
+                <br>
+                <h3>Aún no has creado ningún producto</h3>
+                <button class="buttons-actions empty-button" routerLink="/productos/nuevo" mat-flat-button color="primary" type="submit"><span>Añadir <b>Usuario</b></span> </button>
+            </div>
+            <div class="example-container mat-elevation-z8" *ngIf="productos.length > 0">
+                <mat-table [dataSource]="productos">
+                    <ng-container matColumnDef="key">
+                        <mat-header-cell *matHeaderCellDef> KeyLlantaCity </mat-header-cell>
+                        <mat-cell data-label="KeyLlantaCity" *matCellDef="let element"> {{element.keyLlantacity}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="marca">
+                        <mat-header-cell *matHeaderCellDef> Marca </mat-header-cell>
+                        <mat-cell data-label="Marca" *matCellDef="let element"> {{element.marca}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proporcion">
+                        <mat-header-cell *matHeaderCellDef> Proporcion </mat-header-cell>
+                        <mat-cell data-label="Proporcion" *matCellDef="let element"> {{element.ancho}} / {{element.alto}} / R{{element.rin}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="alto">
+                        <mat-header-cell *matHeaderCellDef> Alto </mat-header-cell>
+                        <mat-cell data-label="Alto" *matCellDef="let element"> {{element.alto}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="existencia">
+                        <mat-header-cell *matHeaderCellDef> Existencia</mat-header-cell>
+                        <mat-cell data-label="Existencia" *matCellDef="let element"> {{element.existencia}}</mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                        <mat-cell data-label="Acciones" *matCellDef="let element">
+
+                            <mat-checkbox color="primary" matTooltip="Activar o desactivar" (change)="dialogChangeStatusUsuario($event, element)" [checked]="element.active">
+                            </mat-checkbox>
+
+                            <button mat-icon-button color="accent" matTooltip="Editar o ver datos" (click)="goToEditUser(element.hash_admin)">
+                                <mat-icon class="mat-18 material-icons color_green">border_color</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator *ngIf="productos.length > 0" #paginator [length]="totalLength" [pageIndex]="pageIndex" [pageSize]="limit" [pageSizeOptions]="pageLimit" (page)="changePage($event)">
+                </mat-paginator>
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>
+</div>

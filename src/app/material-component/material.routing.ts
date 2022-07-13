@@ -2,18 +2,26 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from '../Storage/AuthGuard';
 import { ProfileComponent } from './profile/profile.component';
 import { TiresExcelComponent } from './tires-excel/tires-excel.component';
+import { ActionsTiresComponent } from './tiresComponents/actions-tires/actions-tires.component';
+import { TiresComponent } from './tiresComponents/tires/tires.component';
 import { ActionsUsuariosComponent } from './usuariosComponents/actions-usuarios/actions-usuarios.component';
 import { UsuariosComponent } from './usuariosComponents/usuarios/usuarios.component';
 
 export const MaterialRoutes: Routes = [
   {
     path: 'usuarios',
-
     children: [
-
       { path: '', component: UsuariosComponent, canActivate: [AuthGuard], data: { expectedRol: ['SuperAdmin'] } },
       { path: 'editar/:hashAdmin', component: ActionsUsuariosComponent, data: { ruta: 'editar', expectedRol: ['SuperAdmin'] }, canActivate: [AuthGuard] },
       { path: 'nuevo', component: ActionsUsuariosComponent, data: { ruta: 'nuevo', expectedRol: ['SuperAdmin'] }, canActivate: [AuthGuard] }
+    ]
+  },
+  {
+    path: 'productos',
+    children: [
+      { path: '', component: TiresComponent, canActivate: [AuthGuard], data: { expectedRol: ['SuperAdmin'] } },
+      { path: 'editar/:sku', component: ActionsTiresComponent, data: { ruta: 'editar', expectedRol: ['SuperAdmin'] }, canActivate: [AuthGuard] },
+      { path: 'nuevo', component: ActionsTiresComponent, data: { ruta: 'nuevo', expectedRol: ['SuperAdmin'] }, canActivate: [AuthGuard] }
     ]
   },
   {

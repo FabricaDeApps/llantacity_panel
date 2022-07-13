@@ -18,6 +18,8 @@ import { UsuariosComponent } from './usuariosComponents/usuarios/usuarios.compon
 import { ActionsUsuariosComponent } from './usuariosComponents/actions-usuarios/actions-usuarios.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TiresExcelComponent } from './tires-excel/tires-excel.component';
+import { TiresComponent } from './tiresComponents/tires/tires.component';
+import { ActionsTiresComponent } from './tiresComponents/actions-tires/actions-tires.component';
 
 @NgModule({
   imports: [
@@ -36,7 +38,9 @@ import { TiresExcelComponent } from './tires-excel/tires-excel.component';
     CurrencyInputMaskDirective,
     ProfileComponent, LoadingComponent, UsuariosComponent,
     ActionsUsuariosComponent,
-    TiresExcelComponent
+    TiresExcelComponent,
+    TiresComponent,
+    ActionsTiresComponent
   ],
   exports: [
     LoadingComponent, RouterModule, NgxSpinnerModule

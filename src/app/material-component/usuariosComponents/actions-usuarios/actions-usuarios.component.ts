@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddNewElementComponent } from '../../../add-new-element/add-new-element.component';
 import { EncrDecrService } from '../../../clases/EncrDecrService';
-import { Admin, Roles, Ruteo, Users } from '../../../clases/interfaces';
+import { Admin, Ruteo } from '../../../clases/interfaces';
 import { CommonAlerts } from '../../../common-alerts';
 import { ConstantServiceProvider } from '../../../providers/constant-service/constant-service';
 import { UsersService } from '../../../providers/users-service/users.service';
@@ -156,10 +156,10 @@ export class ActionsUsuariosComponent implements OnInit {
     this.usersService.findAdminByHash(this.hashAdmin).subscribe(
       (response) => {
         if (response.header.code == 200) {
-          this.usuario = response.data[0];          
+          this.usuario = response.data[0];
           this.formUsuario.controls['name'].setValue(this.usuario.name);
           this.formUsuario.controls['lastName'].setValue(this.usuario.last_name);
-          this.formUsuario.controls['email'].setValue(this.usuario.email);          
+          this.formUsuario.controls['email'].setValue(this.usuario.email);
         } else {
           this.comonAlerts.showWarnning(response.header.message)
         }

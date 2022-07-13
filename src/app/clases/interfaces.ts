@@ -6,6 +6,48 @@ import { Injectable } from "@angular/core";
 export class InterfacesService {
 }
 
+export interface Productos {
+  idTire: any
+  keyLlantacity: string
+  codigo: string
+  categoria: string
+  marca: string
+  ancho: string
+  alto: string
+  rin: string
+  diseno: string
+  clasZR: string
+  indiceCarga: any
+  indiceVel: string
+  aplicacion: string
+  charge: any
+  homologacion: any
+  costo: any,
+  existencia: any
+  image: string
+  active: boolean
+  isFavorite: boolean
+  createdTime: string
+  idProveedor: any
+  pesoVolumetrico: string
+  temperatura: any
+  traccion: any
+  treadwear: any
+  estilo: any
+  caracteristica: any
+  tipoIdentificacion: any
+  numeroIdentificacion: any
+  garantiaAnos: any
+  paisEnvio: any
+  tipoVehiculo: any
+  video: any
+  descripcionCorta: any
+  diametroTotal: any
+  altoTotal: any
+  id_woocommerce: any
+  last_update_woocommerce: string
+}
+
 export interface ModalCreate {
   subtitle: string
   message: string
