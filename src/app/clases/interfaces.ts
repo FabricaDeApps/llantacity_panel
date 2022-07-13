@@ -16,6 +16,19 @@ export interface ModalCreate {
   textTooltip: string
 }
 
+export interface Admin {
+  id_admin: any
+  hash_admin: string
+  name: string
+  last_name: string
+  email: string
+  active: boolean
+  created_date: string
+  modified_date: string
+  is_deleted: boolean
+  type: string
+}
+
 
 export interface Clientes {
   active: boolean

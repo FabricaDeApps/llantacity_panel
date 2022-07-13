@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { EncrDecrService } from '../../../clases/EncrDecrService';
-import { Clientes, Users } from '../../../clases/interfaces';
+import { Admin } from '../../../clases/interfaces';
 import { CommonAlerts } from '../../../common-alerts';
 import { ConfirmDialogComponent } from '../../../confirm-dialog/confirm-dialog.component';
 import { ConstantServiceProvider } from '../../../providers/constant-service/constant-service';
@@ -16,13 +16,12 @@ import { UsersService } from '../../../providers/users-service/users.service';
 export class UsuariosComponent implements OnInit {
   isLoading: boolean = false;
   isLoaded: boolean = false;
-  clientes: Clientes[] = []
-  isLoadedCliente: boolean = false;
-  usuarios: Users[] = []
-  hashClient: any = ''
-  idClient: any = ''
-  nameClient: any
+  usuarios: Admin[] = []
 
+  limit: number = 10;
+  totalLength: number = 0;
+  pageIndex: number = 0;
+  pageLimit: number[] = [5, 10, 20];
 
   public displayedColumns = ['email', 'usuario', 'rol', 'action'];
   constructor(private common: CommonAlerts, private userService: UsersService, private router: Router,
@@ -32,26 +31,26 @@ export class UsuariosComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.encrDecript.decriptValue('idClient') !== this.constantService.encriptClient) {
-      this.loadSpinner()
-      this.hashClient = this.encrDecript.decriptValue('hashClient');
-      this.idClient = this.encrDecript.decriptValue('idClient');
-      this.nameClient = this.encrDecript.decriptValue('nameClient');
-      this.getAllUsersByIdClient(this.idClient)
-    }
+    this.getAllAdmins(1, this.limit)
   }
 
   goToEditUser(hashAdmin: any) {
     this.router.navigate(['/usuarios/editar/' + hashAdmin])
   }
 
-  getAllUsersByIdClient(idClient: any) {
+  getAllAdmins(page: any, maxResults: any) {
+    var param = {
+      page: page,
+      limit: maxResults
+    }
+    let body = JSON.stringify(param);
     this.loadSpinner()
-    this.userService.getAllUsersByIdClient(idClient).subscribe(
+    this.userService.getAllAdmins(body).subscribe(
       (response) => {
         if (response.header.code == 200) {
+          this.totalLength = response.data.pagination.total;
+          this.usuarios = response.data.users
           this.isLoaded = true;
-          this.usuarios = response.data
         } else {
           this.common.showWarnning(response.header.message)
         }
@@ -66,7 +65,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarios = []
   }
 
-  openDialogDelete(element: Users): void {
+  openDialogDelete(element: Admin): void {
     const title = element.email
     const message = `¿Estás seguro de eliminar el usuario?`;
 
@@ -82,18 +81,18 @@ export class UsuariosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult == true) {
-        this.deleteUsuario(element.hashAdmin)
+        this.deleteAdmin(element.hash_admin)
       }
     });
   }
 
-  deleteUsuario(hashUser: any) {
+  deleteAdmin(hashAdmin: any) {
     this.loadSpinner()
-    this.userService.deleteUser(hashUser).subscribe(
+    this.userService.deleteAdmin(hashAdmin).subscribe(
       (response) => {
         if (response.header.code == 200) {
           this.common.showSuccess(response.header.message)
-          this.getAllUsersByIdClient(this.idClient)
+          this.getAllAdmins(this.pageIndex + 1, this.limit)
         } else {
           this.common.showWarnning(response.header.message)
         }
@@ -105,7 +104,7 @@ export class UsuariosComponent implements OnInit {
     )
   }
 
-  dialogChangeStatusUsuario(event: any, usuario: Users): void {
+  dialogChangeStatusUsuario(event: any, usuario: Admin): void {
     const title = usuario.email
     const message = `¿Estas seguro de cambiar el estatus del usuario?`;
 
@@ -120,9 +119,9 @@ export class UsuariosComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult == true) {
-        this.updateStatusUsuario(usuario.hashAdmin, event.checked)
+        this.updateStatusUsuario(usuario.hash_admin, event.checked)
       } else {
-        this.getAllUsersByIdClient(this.idClient)
+        this.getAllAdmins(this.pageIndex + 1, this.limit)
       }
     });
   }
@@ -130,19 +129,18 @@ export class UsuariosComponent implements OnInit {
   updateStatusUsuario(hashUser: any, checked: boolean) {
     this.loadSpinner()
     var params = {
-      hash: hashUser,
-      status: checked
+      hash_admin: hashUser,
+      active: checked
     }
     let body = JSON.stringify(params);
-    this.userService.updateStatus(body).subscribe(
+    this.userService.changeStatus(body).subscribe(
       (response) => {
         if (response.header.code == 200) {
           this.common.showSuccess(response.header.message)
-          this.getAllUsersByIdClient(this.idClient)
         } else {
           this.common.showWarnning(response.header.message)
-          this.getAllUsersByIdClient(this.idClient)
         }
+        this.getAllAdmins(this.pageIndex + 1, this.limit)
         this.terminateSpinner()
       }, (error) => {
         this.common.showToastError(error)
@@ -150,6 +148,13 @@ export class UsuariosComponent implements OnInit {
       }
     )
   }
+
+  changePage(event: any) {
+    this.getAllAdmins(event.pageIndex + 1, event.pageSize);
+    this.pageIndex = event.pageIndex;
+    this.limit = event.pageSize;
+  }
+
 
   loadSpinner(): void {
     this.isLoading = true;

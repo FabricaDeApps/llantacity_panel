@@ -10,16 +10,12 @@
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-
-            <br>
-            <h4>Cliente: {{cliente}}</h4>
-            <br>
-            <form [formGroup]="formUsuario" (ngSubmit)="addOrUpdateCliente()" novalidate class="example-form"
+            <form [formGroup]="formUsuario" (ngSubmit)="addOrUpdateUsuario()" novalidate class="example-form"
                 autocomplete="off">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <mat-form-field>
-                            <input matInput placeholder="Email" type="text" maxlength="255" formControlName="email"
+                            <input matInput placeholder="Email" type="text" [readonly]="isUpdate" maxlength="255" formControlName="email"
                                 required autocomplete="new-text">
                             <mat-error *ngIf="formUsuario.get('email').hasError('required')">
                                 El email es requerido
@@ -74,23 +70,6 @@
 
                             <mat-error *ngIf="formUsuario.get('lastName').hasError('required')">
                                 Los apellidos son requeridos.
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <br>
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Selecciona un rol</mat-label>
-                            <mat-select formControlName="rol" required>
-                                <mat-option *ngFor="let rol of roles" [value]="rol.id_rol">
-                                    {{rol.rol}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="formUsuario.get('rol').hasError('required')">
-                                El rol es requerido.
                             </mat-error>
                         </mat-form-field>
                     </div>

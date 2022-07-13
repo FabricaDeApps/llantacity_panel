@@ -12,38 +12,44 @@ export class UsersService {
   constructor(public httpClient: HttpClient, private constantServiceProvider: ConstantServiceProvider, private handleErrors: CommonAlerts) {
   }
 
-  getAllUsersByIdClient(idClient: any): Observable<any> {
-    return this.httpClient.get(this.constantServiceProvider.server + "users/findByIdClient/" + idClient, this.constantServiceProvider.getHeadersNew()).pipe(
+  getAllAdmins(body: any): Observable<any> {
+    return this.httpClient.post(this.constantServiceProvider.server + "admin/getAll", body, this.constantServiceProvider.getHeadersNew()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }
 
-  updateStatus(body: any): Observable<any> {
-    return this.httpClient.put(this.constantServiceProvider.server + "users/status", body, this.constantServiceProvider.getHeadersNew()).pipe(
+  addAdmin(body: any): Observable<any> {
+    return this.httpClient.post(this.constantServiceProvider.server + "admin/add", body, this.constantServiceProvider.getHeadersNew()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }
 
-  deleteUser(hashAdmin: any): Observable<any> {
-    return this.httpClient.delete(this.constantServiceProvider.server + "users/delete/" + hashAdmin, this.constantServiceProvider.getHeadersNew()).pipe(
+  updateAdmin(body: any): Observable<any> {
+    return this.httpClient.put(this.constantServiceProvider.server + "admin/update", body, this.constantServiceProvider.getHeadersNew()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }
 
-  getUserById(hashAdmin: any): Observable<any> {
-    return this.httpClient.get(this.constantServiceProvider.server + "users/" + hashAdmin, this.constantServiceProvider.getHeadersNew()).pipe(
+  changePassword(body: any): Observable<any> {
+    return this.httpClient.put(this.constantServiceProvider.server + "admin/changePassword", body, this.constantServiceProvider.getHeadersNew()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }
 
-  addUser(body: any): Observable<any> {
-    return this.httpClient.post(this.constantServiceProvider.server + "users/add", body, this.constantServiceProvider.getHeadersNew()).pipe(
+  deleteAdmin(hashAdmin: any): Observable<any> {
+    return this.httpClient.delete(this.constantServiceProvider.server + "admin/delete/" + hashAdmin, this.constantServiceProvider.getHeadersNew()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }
 
-  updateUser(body: any, hashAdmin: any): Observable<any> {
-    return this.httpClient.put(this.constantServiceProvider.server + "users/update/" + hashAdmin, body, this.constantServiceProvider.getHeadersNew()).pipe(
+  findAdminByHash(hashAdmin: any): Observable<any> {
+    return this.httpClient.get(this.constantServiceProvider.server + "admin/findByHash/" + hashAdmin, this.constantServiceProvider.getHeadersNew()).pipe(
+      catchError(this.handleErrors.handleError)
+    );
+  }
+  
+  changeStatus(body: any): Observable<any> {
+    return this.httpClient.put(this.constantServiceProvider.server + "admin/changeStatus", body, this.constantServiceProvider.getHeadersNew()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }

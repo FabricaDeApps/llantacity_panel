@@ -3,29 +3,13 @@
     <mat-card>
         <mat-card-header>
             <mat-card-title>
-                Lista de usuarios
+                Lista de usuarios admin
                 <button matTooltip="Crear nuevo usuario" *ngIf="isLoaded"  routerLink="/usuarios/nuevo" class="button-add" mat-raised-button color="accent">
                     <mat-icon class="color_amar">add_box</mat-icon> <span>Añadir</span>
                 </button>
             </mat-card-title>
-            <mat-card-subtitle *ngIf="hashClient !== ''">
-                <div class="col-12">
-                    <span class="sub-titulo">Cliente: <strong>{{nameClient}}</strong></span>
-                    <button mat-mini-fab matTooltip="Cambiar cliente global" class="change-client"
-                        routerLink="/clientes">
-                        <mat-icon>track_changes</mat-icon>
-                    </button>
-
-                </div>
-            </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <div class="empty-data mat-elevation-z8" *ngIf="hashClient == '' || hashClient == undefined">
-                <br>
-                <h3>Aún no has elegido un cliente como global.</h3>
-                <button class="buttons-actions empty-button" routerLink="/clientes" mat-flat-button color="primary"
-                    type="submit"><span>Seleccionar <b>Cliente</b></span> </button>
-            </div>
             <div class="empty-data mat-elevation-z8" *ngIf="usuarios.length == 0 && isLoaded">
                 <br>
                 <h3>Aún no has creado ningún usuario</h3>
@@ -40,12 +24,12 @@
 
                     <ng-container matColumnDef="usuario">
                         <mat-header-cell *matHeaderCellDef> Nombre y apellidos </mat-header-cell>
-                        <mat-cell data-label="Nombre y apellidos" *matCellDef="let element"> {{element.name}} {{element.lastName}} </mat-cell>
+                        <mat-cell data-label="Nombre y apellidos" *matCellDef="let element"> {{element.name}} {{element.last_name}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="rol">
                         <mat-header-cell *matHeaderCellDef> Rol </mat-header-cell>
-                        <mat-cell data-label="Rol" *matCellDef="let element"> {{element.rolName}}</mat-cell>
+                        <mat-cell data-label="Rol" *matCellDef="let element"> {{element.type}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
@@ -55,7 +39,7 @@
                             <mat-checkbox color="primary" matTooltip="Activar o desactivar" (change)="dialogChangeStatusUsuario($event, element)" [checked]="element.active">
                             </mat-checkbox>
 
-                            <button mat-icon-button color="accent" matTooltip="Editar o ver datos" (click)="goToEditUser(element.hashAdmin)">
+                            <button mat-icon-button color="accent" matTooltip="Editar o ver datos" (click)="goToEditUser(element.hash_admin)">
                                 <mat-icon class="mat-18 material-icons color_green">border_color</mat-icon>
                             </button>
 
@@ -69,6 +53,8 @@
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                 </mat-table>
+                <mat-paginator *ngIf="usuarios.length > 0" #paginator [length]="totalLength" [pageIndex]="pageIndex" [pageSize]="limit" [pageSizeOptions]="pageLimit" (page)="changePage($event)">
+                </mat-paginator>
             </div>
 
         </mat-card-content>

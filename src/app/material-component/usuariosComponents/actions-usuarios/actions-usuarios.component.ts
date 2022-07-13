@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddNewElementComponent } from '../../../add-new-element/add-new-element.component';
 import { EncrDecrService } from '../../../clases/EncrDecrService';
-import { Roles, Ruteo, Users } from '../../../clases/interfaces';
+import { Admin, Roles, Ruteo, Users } from '../../../clases/interfaces';
 import { CommonAlerts } from '../../../common-alerts';
 import { ConstantServiceProvider } from '../../../providers/constant-service/constant-service';
 import { UsersService } from '../../../providers/users-service/users.service';
@@ -17,15 +17,10 @@ import { UsersService } from '../../../providers/users-service/users.service';
 export class ActionsUsuariosComponent implements OnInit {
   @ViewChild(FormGroupDirective, { static: true }) formDirective: FormGroupDirective;
   formUsuario: FormGroup;
-  idClient: any = ''
-  hashClient: any = ''
-  nameClient: any = ''
   isLoading: boolean = false;
   isUpdate: boolean = false;
-  cliente: any
   hashAdmin: any
-  usuario: Users
-  roles: Roles[] = []
+  usuario: Admin
   //textos
   titulo: string
   subtitulo: string
@@ -39,33 +34,7 @@ export class ActionsUsuariosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idClient = this.encrDecript.decriptValue('idClient');
-    this.hashClient = this.encrDecript.decriptValue('hashClient');
-    this.cliente = this.encrDecript.decriptValue('nameClient');
-    if (this.encrDecript.decriptValue('idClient') == this.constantService.encriptClient || this.idClient == '' || this.idClient == undefined) {
-      this.goToListUsuarios()
-    }
-    this.getRolesActives()
     this.checkTypeRoute()
-  }
-
-
-  getRolesActives() {
-    this.loadSpinner()
-    /* this.rolesService.getAllRolesActives().subscribe(
-      (response) => {
-        if (response.header.code == 200) {
-          this.roles = response.data
-        } else {
-          this.comonAlerts.showWarnning(response.header.message)
-        }
-        this.terminateSpinner()
-      }, (error) => {
-        this.comonAlerts.showToastError(error)
-        this.terminateSpinner()
-      }
-    ) */
-    this.terminateSpinner()
   }
 
   validateFormulario() {
@@ -73,8 +42,7 @@ export class ActionsUsuariosComponent implements OnInit {
       email: ['', [Validators.required, Validators.maxLength(255), Validators.email]],
       name: ['', [Validators.required, Validators.maxLength(250)]],
       lastName: ['', [Validators.required, Validators.maxLength(250)]],
-      password: ['', [Validators.required, Validators.maxLength(200)]],
-      rol: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.maxLength(200)]]
     })
   }
 
@@ -105,22 +73,23 @@ export class ActionsUsuariosComponent implements OnInit {
   }
 
 
-  addOrUpdateCliente() {
+  addOrUpdateUsuario() {
     if (!this.formUsuario.valid) {
       return;
     }
     this.loadSpinner()
     var params = {
       name: this.formUsuario.value.name,
-      lastName: this.formUsuario.value.lastName,
+      last_name: this.formUsuario.value.lastName,
       email: this.formUsuario.value.email,
       password: this.formUsuario.value.email,
-      rol: this.formUsuario.value.rol,
-      idClient: this.idClient
+      type: 'Admin'
     }
     if (this.isUpdate) {
+      delete params['password'];
+      params["hash_admin"] = this.hashAdmin;
       let bodyUpdate = JSON.stringify(params);
-      this.usersService.updateUser(bodyUpdate, this.hashAdmin).subscribe((response: any) => {
+      this.usersService.updateAdmin(bodyUpdate).subscribe((response: any) => {
         if (response.header.code == 200) {
           this.comonAlerts.showSuccess(response.header.message)
           this.goToListUsuarios()
@@ -134,7 +103,7 @@ export class ActionsUsuariosComponent implements OnInit {
       });
     } else {
       let body = JSON.stringify(params);
-      this.usersService.addUser(body).subscribe((response: any) => {
+      this.usersService.addAdmin(body).subscribe((response: any) => {
         if (response.header.code == 200) {
           this.confirmNewElement();
         } else {
@@ -184,14 +153,13 @@ export class ActionsUsuariosComponent implements OnInit {
 
   getUsuarioById() {
     this.loadSpinner()
-    this.usersService.getUserById(this.hashAdmin).subscribe(
+    this.usersService.findAdminByHash(this.hashAdmin).subscribe(
       (response) => {
         if (response.header.code == 200) {
-          this.usuario = response.data;
+          this.usuario = response.data[0];          
           this.formUsuario.controls['name'].setValue(this.usuario.name);
-          this.formUsuario.controls['lastName'].setValue(this.usuario.lastName);
-          this.formUsuario.controls['email'].setValue(this.usuario.email);
-          this.formUsuario.controls['rol'].setValue(this.usuario.id_rol);
+          this.formUsuario.controls['lastName'].setValue(this.usuario.last_name);
+          this.formUsuario.controls['email'].setValue(this.usuario.email);          
         } else {
           this.comonAlerts.showWarnning(response.header.message)
         }
