@@ -41,4 +41,10 @@ export class ProductosService {
       catchError(this.handleErrors.handleError)
     );
   }
+
+  changeStatus(body: any): Observable<any> {
+    return this.httpClient.put(this.constantServiceProvider.server + "tires/changeStatus", body, this.constantServiceProvider.getHeadersNew()).pipe(
+      catchError(this.handleErrors.handleError)
+    );
+  }
 }

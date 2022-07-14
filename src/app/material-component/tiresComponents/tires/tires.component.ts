@@ -61,9 +61,9 @@ export class TiresComponent implements OnInit {
     this.productos = []
   }
 
-  dialogChangeStatusUsuario(event: any, usuario: Admin): void {
-    const title = usuario.email
-    const message = `¿Estas seguro de cambiar el estatus del usuario?`;
+  dialogChangeStatus(event: any, producto: Productos): void {
+    const title = producto.keyLlantacity
+    const message = `¿Estas seguro de cambiar el estatus del producto?`;
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
@@ -71,39 +71,40 @@ export class TiresComponent implements OnInit {
       panelClass: ['animate__animated', 'animate__fadeInDownBig'],
       data: {
         tittle: title,
+        subtitle: producto.marca + " " + producto.ancho + " / " + producto.alto + " / R" + producto.rin,
         message: message
       }
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult == true) {
-        this.updateStatusProducto(usuario.hash_admin, event.checked)
+        this.updateStatusProducto(producto.idTire + "-" + producto.keyLlantacity, event.checked)
       } else {
         this.getAllProductos(this.pageIndex + 1, this.limit)
       }
     });
   }
 
-  updateStatusProducto(hashUser: any, checked: boolean) {
+  updateStatusProducto(sku: any, checked: boolean) {
     this.loadSpinner()
     var params = {
-      hash_admin: hashUser,
+      sku: sku,
       active: checked
     }
     let body = JSON.stringify(params);
-    /*  this.productos.(body).subscribe(
+     this.productosService.changeStatus(body).subscribe(
        (response) => {
          if (response.header.code == 200) {
            this.common.showSuccess(response.header.message)
          } else {
            this.common.showWarnning(response.header.message)
          }
-         this.getAllAdmins(this.pageIndex + 1, this.limit)
+         this.getAllProductos(this.pageIndex + 1, this.limit)
          this.terminateSpinner()
        }, (error) => {
          this.common.showToastError(error)
          this.terminateSpinner()
        }
-     ) */
+     )
   }
 
   changePage(event: any) {

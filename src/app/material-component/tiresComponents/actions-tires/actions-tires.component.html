@@ -102,7 +102,7 @@
                             <input matInput placeholder="Diseño" type="text" maxlength="200" formControlName="diseno"
                                 required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('diseno').hasError('required')">
-                                El diseño es requerida
+                                El diseño es requerido
                             </mat-error>
                             <mat-error *ngIf="formProducto.get('diseno').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
@@ -122,26 +122,26 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Indice de carga" type="text" maxlength="200" formControlName="indiceCarga"
+                            <input matInput placeholder="Indice de carga" type="text" maxlength="11" formControlName="indiceCarga"
                                 required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('indiceCarga').hasError('required')">
                                 El indice de carga es requerido.
                             </mat-error>
                             <mat-error *ngIf="formProducto.get('indiceCarga').hasError('maxlength')">
-                                La longitud máxima es de 200 caracteres.
+                                La longitud máxima es de 11 caracteres.
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Indice de velocidad" type="text" maxlength="11" formControlName="indiceVel"
+                            <input matInput placeholder="Indice de velocidad" type="text" maxlength="200" formControlName="indiceVel"
                                 required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('indiceVel').hasError('required')">
                                 El indice de velocidad es requerido.
                             </mat-error>
                             <mat-error *ngIf="formProducto.get('indiceVel').hasError('maxlength')">
-                                La longitud máxima es de 11 caracteres.
+                                La longitud máxima es de 200 caracteres.
                             </mat-error>
                         </mat-form-field>
                     </div>

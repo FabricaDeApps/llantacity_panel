@@ -47,7 +47,7 @@
                         <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                         <mat-cell data-label="Acciones" *matCellDef="let element">
 
-                            <mat-checkbox color="primary" matTooltip="Activar o desactivar" (change)="dialogChangeStatusUsuario($event, element)" [checked]="element.active">
+                            <mat-checkbox color="primary" matTooltip="Activar o desactivar" (change)="dialogChangeStatus($event, element)" [checked]="element.active">
                             </mat-checkbox>
 
                             <button mat-icon-button color="accent" matTooltip="Editar o ver datos" (click)="goToEditUser(element.hash_admin)">

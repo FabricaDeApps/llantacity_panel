@@ -70,11 +70,6 @@ export class ActionsTiresComponent implements OnInit {
       diametroTotal: ['', [Validators.maxLength(200)]],
       altoTotal: ['', [Validators.maxLength(200)]],
       isFavorite: [false],
-      
-      email: ['', [Validators.required, Validators.maxLength(255), Validators.email]],
-      name: ['', [Validators.required, Validators.maxLength(250)]],
-      lastName: ['', [Validators.required, Validators.maxLength(250)]],
-      password: ['', [Validators.required, Validators.maxLength(200)]]
     })
   }
 
