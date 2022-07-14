@@ -10,7 +10,7 @@
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <form [formGroup]="formProducto" (ngSubmit)="addOrUpdateUsuario()" novalidate class="example-form"
+            <form [formGroup]="formProducto" (ngSubmit)="addOrUpdateProducto()" novalidate class="example-form"
                 autocomplete="off">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
@@ -28,8 +28,8 @@
 
                     <div class="col-sm-12 col-md-6">
                         <mat-form-field>
-                            <input matInput placeholder="Categoría" type="text" maxlength="200" formControlName="categoria"
-                                required autocomplete="new-text">
+                            <input matInput placeholder="Categoría" type="text" maxlength="200"
+                                formControlName="categoria" required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('categoria').hasError('required')">
                                 La categoría es requerida
                             </mat-error>
@@ -83,8 +83,8 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Rin" type="text" maxlength="200" formControlName="rin"
-                                required autocomplete="new-text">
+                            <input matInput placeholder="Rin" type="text" maxlength="200" formControlName="rin" required
+                                autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('rin').hasError('required')">
                                 El rin es requerido.
                             </mat-error>
@@ -122,10 +122,13 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Indice de carga" type="text" maxlength="11" formControlName="indiceCarga"
-                                required autocomplete="new-text">
+                            <input matInput placeholder="Indice de carga" type="text" maxlength="11"
+                                formControlName="indiceCarga" required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('indiceCarga').hasError('required')">
                                 El indice de carga es requerido.
+                            </mat-error>
+                            <mat-error *ngIf="formProducto.get('indiceCarga').hasError('pattern')">
+                                El valor es un número entero decimal.
                             </mat-error>
                             <mat-error *ngIf="formProducto.get('indiceCarga').hasError('maxlength')">
                                 La longitud máxima es de 11 caracteres.
@@ -135,8 +138,8 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Indice de velocidad" type="text" maxlength="200" formControlName="indiceVel"
-                                required autocomplete="new-text">
+                            <input matInput placeholder="Indice de velocidad" type="text" maxlength="200"
+                                formControlName="indiceVel" required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('indiceVel').hasError('required')">
                                 El indice de velocidad es requerido.
                             </mat-error>
@@ -151,8 +154,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Aplicación" type="text" maxlength="200" formControlName="aplicacion"
-                                required autocomplete="new-text">
+                            <input matInput placeholder="Aplicación" type="text" maxlength="200"
+                                formControlName="aplicacion" required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('aplicacion').hasError('required')">
                                 La aplicación es requerida
                             </mat-error>
@@ -174,8 +177,8 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Homologación" type="text" maxlength="200" formControlName="homologacion"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Homologación" type="text" maxlength="200"
+                                formControlName="homologacion" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('homologacion').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -184,8 +187,9 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Costo" type="text" maxlength="10" formControlName="costo"
-                                required autocomplete="new-text">
+                            <input matInput placeholder="Costo" type="number"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                maxlength="10" formControlName="costo" required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('costo').hasError('required')">
                                 El costo es requerido.
                             </mat-error>
@@ -200,24 +204,32 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-4">
                         <mat-form-field>
-                            <input matInput placeholder="Existencia" type="text" maxlength="11" formControlName="existencia"
-                                required autocomplete="new-text">
+                            <input matInput placeholder="Existencia" type="number"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                maxlength="11" formControlName="existencia" required autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('existencia').hasError('required')">
                                 Ingresa la existencia
                             </mat-error>
                             <mat-error *ngIf="formProducto.get('existencia').hasError('maxlength')">
                                 La longitud máxima es de 11 caracteres.
                             </mat-error>
+                            <mat-error *ngIf="formProducto.get('existencia').hasError('pattern')">
+                                El valor es un número entero decimal.
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="col-sm-12 col-md-8">
-                        <mat-form-field>
-                            <input matInput placeholder="Proveedor" type="text" maxlength="200" formControlName="idProveedor"
-                                required autocomplete="new-text">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Selecciona un Proveedor</mat-label>
+                            <mat-select formControlName="idProveedor" required>
+                                <mat-option *ngFor="let prov of proveedores" [value]="prov.idProveedor">
+                                    {{prov.nombreComercial}}
+                                </mat-option>
+                            </mat-select>
                             <mat-error *ngIf="formProducto.get('idProveedor').hasError('required')">
                                 El proveedor es requerido.
-                            </mat-error>                            
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
@@ -226,8 +238,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Peso Volumetrico" type="text" maxlength="200" formControlName="pesoVolumetrico"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Peso Volumetrico" type="text" maxlength="200"
+                                formControlName="pesoVolumetrico" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('pesoVolumetrico').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -236,8 +248,8 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Temperatura" type="text" maxlength="200" formControlName="temperatura"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Temperatura" type="text" maxlength="200"
+                                formControlName="temperatura" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('temperatura').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -246,8 +258,8 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="Tracción" type="text" maxlength="200" formControlName="traccion"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Tracción" type="text" maxlength="200"
+                                formControlName="traccion" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('traccion').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -256,8 +268,8 @@
 
                     <div class="col-sm-12 col-md-3">
                         <mat-form-field>
-                            <input matInput placeholder="TreadWear" type="text" maxlength="200" formControlName="treadwear"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="TreadWear" type="text" maxlength="200"
+                                formControlName="treadwear" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('treadwear').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -269,7 +281,7 @@
                     <div class="col-sm-12 col-md-5">
                         <mat-form-field>
                             <input matInput placeholder="Estilo" type="text" maxlength="200" formControlName="estilo"
-                                autocomplete="new-text">                            
+                                autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('estilo').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -278,8 +290,8 @@
 
                     <div class="col-sm-12 col-md-7">
                         <mat-form-field>
-                            <input matInput placeholder="Caracteristica" type="text" maxlength="200" formControlName="caracteristica"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Caracteristica" type="text" maxlength="200"
+                                formControlName="caracteristica" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('caracteristica').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -290,8 +302,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <mat-form-field>
-                            <input matInput placeholder="Tipo de indentificación" type="text" maxlength="200" formControlName="tipoIdentificacion"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Tipo de indentificación" type="text" maxlength="200"
+                                formControlName="tipoIdentificacion" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('tipoIdentificacion').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -300,10 +312,13 @@
 
                     <div class="col-sm-12 col-md-6">
                         <mat-form-field>
-                            <input matInput placeholder="Número de indentificación" type="text" maxlength="11" formControlName="numeroIdentificacion"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Número de indentificación" type="text" maxlength="11"
+                                formControlName="numeroIdentificacion" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('numeroIdentificacion').hasError('maxlength')">
                                 La longitud máxima es de 11 caracteres.
+                            </mat-error>
+                            <mat-error *ngIf="formProducto.get('numeroIdentificacion').hasError('pattern')">
+                                El valor es un número entero decimal.
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -312,18 +327,21 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-4">
                         <mat-form-field>
-                            <input matInput placeholder="Garantia en años" type="text" maxlength="11" formControlName="garantiaAnos"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Garantia en años" type="text" maxlength="11"
+                                formControlName="garantiaAnos" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('garantiaAnos').hasError('maxlength')">
                                 La longitud máxima es de 11 caracteres.
+                            </mat-error>
+                            <mat-error *ngIf="formProducto.get('garantiaAnos').hasError('pattern')">
+                                El valor es un número entero decimal.
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="col-sm-12 col-md-4">
                         <mat-form-field>
-                            <input matInput placeholder="País de envio" type="text" maxlength="200" formControlName="paisEnvio"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="País de envio" type="text" maxlength="200"
+                                formControlName="paisEnvio" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('paisEnvio').hasError('maxlength')">
                                 La longitud máxima es de 11 caracteres.
                             </mat-error>
@@ -332,8 +350,8 @@
 
                     <div class="col-sm-12 col-md-4">
                         <mat-form-field>
-                            <input matInput placeholder="Tipo de vehiculo" type="text" maxlength="200" formControlName="tipoVehiculo"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Tipo de vehiculo" type="text" maxlength="200"
+                                formControlName="tipoVehiculo" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('tipoVehiculo').hasError('maxlength')">
                                 La longitud máxima es de 11 caracteres.
                             </mat-error>
@@ -343,8 +361,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                         <mat-form-field>
-                            <input matInput placeholder="Descripción corta" type="text" maxlength="600" formControlName="descripcionCorta"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Descripción corta" type="text" maxlength="600"
+                                formControlName="descripcionCorta" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('descripcionCorta').hasError('maxlength')">
                                 La longitud máxima es de 600 caracteres.
                             </mat-error>
@@ -355,8 +373,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <mat-form-field>
-                            <input matInput placeholder="Diametro total" type="text" maxlength="200" formControlName="diametroTotal"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Diametro total" type="text" maxlength="200"
+                                formControlName="diametroTotal" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('diametroTotal').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
@@ -365,21 +383,32 @@
 
                     <div class="col-sm-12 col-md-6">
                         <mat-form-field>
-                            <input matInput placeholder="Alto total" type="text" maxlength="200" formControlName="altoTotal"
-                                autocomplete="new-text">                            
+                            <input matInput placeholder="Alto total" type="text" maxlength="200"
+                                formControlName="altoTotal" autocomplete="new-text">
                             <mat-error *ngIf="formProducto.get('altoTotal').hasError('maxlength')">
                                 La longitud máxima es de 200 caracteres.
                             </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
-                <br>
-                    <div style="text-align: center;">
-                        <button mat-raised-button color="primary" type="button" *ngIf="isUpdate"
-                            (click)="getUsuarioById()" class="buttons-cancelar"><span>Cancelar cambios</span></button>
-                        <button class="buttons-actions" mat-flat-button color="primary"
-                            type="submit"><span>{{botonAccion}} <b>Producto</b></span> </button>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12" style="text-align: center;">
+
+                        <span>¿Es Favorito?</span>
+                        <br>
+                        <mat-checkbox [checked]="isFavorite" (change)="setIsFavorite($event.checked)"
+                            class="example-margin"></mat-checkbox>
+
                     </div>
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <button mat-raised-button color="primary" type="button" *ngIf="isUpdate"
+                        (click)="getProductoBySku()" class="buttons-cancelar"><span>Cancelar cambios</span></button>
+                    <button class="buttons-actions" mat-flat-button color="primary" type="submit"><span>{{botonAccion}}
+                            <b>Producto</b></span> </button>
+                </div>
             </form>
         </mat-card-content>
     </mat-card>

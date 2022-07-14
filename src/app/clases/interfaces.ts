@@ -6,6 +6,22 @@ import { Injectable } from "@angular/core";
 export class InterfacesService {
 }
 
+export interface Proveedores {
+  idProveedor: any
+  razonSocial: string
+  nombreComercial: string
+  direccion: string
+  municipio: string
+  estado: string
+  email: string
+  paginaWeb: string
+  telefono: string
+  ciudad: string
+  rfc: string
+  contacto: string
+  active: any
+}
+
 export interface Productos {
   idTire: any
   keyLlantacity: string

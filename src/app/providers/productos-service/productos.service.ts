@@ -37,7 +37,7 @@ export class ProductosService {
   }
 
   getProductByHash(sku: any): Observable<any> {
-    return this.httpClient.get(this.constantServiceProvider.server + "tires/getProduct" + sku, this.constantServiceProvider.getHeadersNew()).pipe(
+    return this.httpClient.get(this.constantServiceProvider.server + "tires/getProduct/" + sku, this.constantServiceProvider.getHeadersNew()).pipe(
       catchError(this.handleErrors.handleError)
     );
   }

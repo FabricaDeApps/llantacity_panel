@@ -30,8 +30,8 @@ export class TiresComponent implements OnInit {
     this.getAllProductos(1, this.limit)
   }
 
-  goToEditUser(hashAdmin: any) {
-    this.router.navigate(['/usuarios/editar/' + hashAdmin])
+  goToEditProduct(element: Productos) {
+    this.router.navigate(['/productos/editar/' + element.idTire + "-" + element.keyLlantacity])
   }
 
   getAllProductos(page: any, maxResults: any) {
