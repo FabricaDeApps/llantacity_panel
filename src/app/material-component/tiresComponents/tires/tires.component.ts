@@ -15,12 +15,12 @@ export class TiresComponent implements OnInit {
   isLoading: boolean = false;
   isLoaded: boolean = false;
   productos: Productos[] = []
+  filterData: Productos[] = []
 
   limit: number = 10;
   totalLength: number = 0;
   pageIndex: number = 0;
-  pageLimit: number[] = [5, 10, 20];
-
+  pageLimit: number[] = [5, 10, 20]; 
   public displayedColumns = ['key', 'marca', 'proporcion', 'existencia', 'action'];
   constructor(private common: CommonAlerts, private productosService: ProductosService, private router: Router,
     public dialog: MatDialog) {
@@ -34,6 +34,28 @@ export class TiresComponent implements OnInit {
     this.router.navigate(['/productos/editar/' + element.idTire + "-" + element.keyLlantacity])
   }
 
+  searchProductos = (value: string) => {
+    if (!value) {
+      this.getAllProductos(1, this.limit)
+    } else {
+      this.pageIndex = 0;
+      var searchTexto = value.trim().toLocaleLowerCase();
+      var param = {
+        search: searchTexto,
+        page: 1,
+        limit: this.limit
+      };
+      let body = JSON.stringify(param);
+      this.productosService.searchProduct(body).subscribe((response: any) => {
+        this.totalLength = response.data.pagination.total;        
+        this.productos = response.data.tires        
+      }, (error) => {
+        this.common.showToastError(error)
+        this.cleanData()
+      });
+    }
+  }
+
   getAllProductos(page: any, maxResults: any) {
     var param = {
       page: page,
@@ -44,8 +66,9 @@ export class TiresComponent implements OnInit {
     this.productosService.getAllProducts(body).subscribe(
       (response) => {
         if (response.header.code == 200) {
-          this.totalLength = response.data.pagination.total;
+          this.totalLength = response.data.pagination.total;        
           this.productos = response.data.tires
+          this.filterData = response.data.tires
           this.isLoaded = true;
         } else {
           this.common.showWarnning(response.header.message)
