@@ -2,8 +2,9 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { EncrDecrService } from '../../clases/EncrDecrService';
+import { Admin } from '../../clases/interfaces';
 import { CommonAlerts } from '../../common-alerts';
-import { LoginServiceProvider } from '../../providers/login-service/login-service';
+import { UsersService } from '../../providers/users-service/users.service';
 import { MustMatch } from '../../_helpers/must-match.validator';
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,7 @@ import { MustMatch } from '../../_helpers/must-match.validator';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: any
+  user: Admin
   formUser: FormGroup;
   passFormUser: FormGroup;
   isLoading: boolean = false
@@ -22,7 +23,7 @@ export class ProfileComponent implements OnInit {
   constructor(public fb: FormBuilder,
     public dialog: MatDialog,
     private comonAlerts: CommonAlerts,
-    private EncrDecr: EncrDecrService, private loginService: LoginServiceProvider) {
+    private EncrDecr: EncrDecrService, private usersService: UsersService) {
     this.formUser = this.fb.group({
       email: ['', [Validators.maxLength(255), Validators.required, Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)]],
       name: ['', [Validators.maxLength(250), Validators.required]],
@@ -38,7 +39,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.hashUser = this.EncrDecr.decriptValue("hashUser");
-    this.getUserById()
+    this.getUserByHash()
   }
 
   loadSpinner(): void {
@@ -49,14 +50,14 @@ export class ProfileComponent implements OnInit {
     setTimeout(() => this.isLoading = false, 500);
   }
 
-  getUserById() {
+  getUserByHash() {
     this.loadSpinner()
-    this.loginService.getUserById(this.hashUser).subscribe((response: any) => {
+    this.usersService.findAdminByHash(this.hashUser).subscribe((response: any) => {
       if (response.header.code == 200) {
-        this.user = response.data;
+        this.user = response.data[0];
         this.formUser.controls['email'].setValue(this.user.email)
         this.formUser.controls['name'].setValue(this.user.name)
-        this.formUser.controls['lastName'].setValue(this.user.lastName)
+        this.formUser.controls['lastName'].setValue(this.user.last_name)
       } else {
         this.comonAlerts.showWarnning(response.header.message)
       }
@@ -74,13 +75,15 @@ export class ProfileComponent implements OnInit {
     var params = {
       email: this.formUser.value.email,
       name: this.formUser.value.name,
-      lastName: this.formUser.value.lastName
+      last_name: this.formUser.value.lastName,
+      type: this.user.type
     }
-    let bodyUpdate = JSON.stringify(params);
-    this.loginService.updateUsers(this.hashUser, bodyUpdate).subscribe((response: any) => {
+    params["hash_admin"] = this.hashUser;
+    let bodyUpdate = JSON.stringify(params);    
+    this.usersService.updateAdmin(bodyUpdate).subscribe((response: any) => {
       if (response.header.code == 200) {
         this.comonAlerts.showSuccess(response.header.message)
-        this.getUserById()
+        this.getUserByHash()
       } else {
         this.comonAlerts.showWarnning(response.header.message)
       }
@@ -97,11 +100,11 @@ export class ProfileComponent implements OnInit {
     }
     this.loadSpinner()
     var params = {
-      hash: this.hashUser,
-      password: this.passFormUser.value.confirmPassword
+      hash_admin: this.hashUser,
+      new_password: this.passFormUser.value.confirmPassword
     }
     let body = JSON.stringify(params);
-    this.loginService.changePassword(body).subscribe((response: any) => {
+    this.usersService.changePassword(body).subscribe((response: any) => {
       if (response.header.code == 200) {
         this.comonAlerts.showSuccess(response.header.message)
         this.passFormUser.reset();

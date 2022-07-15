@@ -15,23 +15,5 @@ export class LoginServiceProvider {
         return this.httpClient.post(this.constantServiceProvider.server + "admin/login", body, this.constantServiceProvider.getHeadersNew()).pipe(
             catchError(this.handleErrors.handleError)
         );
-    }
-
-    getUserById(hashUser: string): Observable<any> {
-        return this.httpClient.get(this.constantServiceProvider.server + "users/" + hashUser, this.constantServiceProvider.getHeadersNew()).pipe(
-            catchError(this.handleErrors.handleError)
-        );
-    }
-
-    updateUsers(hashUser: any, body: any): Observable<any> {
-        return this.httpClient.put(this.constantServiceProvider.server + "users/update/" + hashUser, body, this.constantServiceProvider.getHeadersNew()).pipe(
-            catchError(this.handleErrors.handleError)
-        );
-    }
-
-    changePassword(body: any): Observable<any> {
-        return this.httpClient.put(this.constantServiceProvider.server + "users/changePassword", body, this.constantServiceProvider.getHeadersNew()).pipe(
-            catchError(this.handleErrors.handleError)
-        );
-    }
+    }   
 }

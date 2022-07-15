@@ -62,8 +62,7 @@ export class StarterComponent implements OnInit {
       response => {
         if (response.header.code == 200) {
           console.warn(response.data)
-          if (response.data.type.toString() == "SuperAdmin") {
-            console.warn("aqui")
+          if (response.data.type.toString() == "SuperAdmin") {            
             var logo = this.EncrDecr.set(this.constantService.encript, 'assets/images/logo.png')
             var cliente = this.EncrDecr.set(this.constantService.encript, 'LlantaCity Administrador')
             this.setearDatos(response, logo, cliente)            
