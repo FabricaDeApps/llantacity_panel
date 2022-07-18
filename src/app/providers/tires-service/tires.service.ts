@@ -29,11 +29,11 @@ export class TiresService {
     );
   }
   
-  download(filename?: string): Observable<Download> {
+  download(filename?: string, idProveedor?: any): Observable<Download> {
     const headers = new HttpHeaders().set('Authorization', 'Basic TExBTlRBQ0lUWURFVkVMT1BNRU5UMjAyMkBGQUIjQVAyMjpMTEFOVEFDSVRZREVWRUxPUE1FTlQyMDIyQEZBQiNBUDIyTDgyU0FMM1hT');
     return this.httpClient
       .get(
-        this.constantServiceProvider.server + "tires/getExcelTires",         
+        this.constantServiceProvider.server + "tires/getExcelTires/" + idProveedor,         
         {
           headers: headers,
           reportProgress: true,
