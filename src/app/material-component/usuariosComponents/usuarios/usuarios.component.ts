@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { EncrDecrService } from '../../../clases/EncrDecrService';
 import { Admin } from '../../../clases/interfaces';
 import { CommonAlerts } from '../../../common-alerts';
 import { ConfirmDialogComponent } from '../../../confirm-dialog/confirm-dialog.component';
-import { ConstantServiceProvider } from '../../../providers/constant-service/constant-service';
 import { UsersService } from '../../../providers/users-service/users.service';
+import { MustMatch } from '../../../_helpers/must-match.validator';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,12 +22,19 @@ export class UsuariosComponent implements OnInit {
   totalLength: number = 0;
   pageIndex: number = 0;
   pageLimit: number[] = [5, 10, 20];
-
+  passForm: FormGroup;
+  hashAdmin: any
+  emailAdmin: any
   public displayedColumns = ['email', 'usuario', 'rol', 'action'];
   constructor(private common: CommonAlerts, private userService: UsersService, private router: Router,
-    private constantService: ConstantServiceProvider,
-    private encrDecript: EncrDecrService,
+    private fb: FormBuilder,
     public dialog: MatDialog) {
+    this.passForm = this.fb.group({
+      password: ['', [Validators.required]],
+      confirmPassword: ['', Validators.required],
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    })
   }
 
   ngOnInit() {
@@ -36,6 +43,43 @@ export class UsuariosComponent implements OnInit {
 
   goToEditUser(hashAdmin: any) {
     this.router.navigate(['/usuarios/editar/' + hashAdmin])
+  }
+
+  openDialogChangePass(user: Admin, templateRef: TemplateRef<any>) {
+    this.dialog.open(templateRef, {
+      disableClose: true,
+      width: '800px',
+      panelClass: ['animate__animated', 'animate__fadeInDownBig']
+    });
+    this.hashAdmin = user.hash_admin
+    this.emailAdmin = user.email
+    this.passForm.reset();
+  }
+
+  changePassword() {
+    if (!this.passForm.valid) {
+      return;
+    }
+    this.dialog.closeAll()
+    this.loadSpinner()
+    var params = {
+      hash_admin: this.hashAdmin,
+      new_password: this.passForm.value.confirmPassword
+    }
+    let body = JSON.stringify(params);
+    this.userService.changePassword(body).subscribe((response: any) => {
+      if (response.header.code == 200) {
+        this.common.showSuccess(response.header.message)
+        this.passForm.reset();
+      } else {
+        this.common.showWarnning(response.header.message)
+      }
+      this.terminateSpinner()
+    }, (error) => {
+      this.common.showToastError(error)
+      this.terminateSpinner()
+    });
+
   }
 
   getAllAdmins(page: any, maxResults: any) {
@@ -64,6 +108,7 @@ export class UsuariosComponent implements OnInit {
     this.isLoaded = false;
     this.usuarios = []
   }
+
 
   openDialogDelete(element: Admin): void {
     const title = element.email

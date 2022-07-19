@@ -46,6 +46,9 @@
                             <button mat-icon-button color="accent" matTooltip="Eliminar" (click)="openDialogDelete(element)">
                                 <mat-icon class="mat-18 material-icons color_red">delete</mat-icon>
                             </button>
+                            <button mat-icon-button color="accent" matTooltip="Cambiar Contraseña" (click)="openDialogChangePass(element, pass)">
+                                <mat-icon class="mat-18 material-icons color_rosa">vpn_lock</mat-icon>
+                            </button>
 
 
                         </mat-cell>
@@ -61,3 +64,46 @@
 
     </mat-card>
 </div>
+
+<!-- change pass modal -->
+<ng-template #pass>
+    <h1 mat-dialog-title>¿Deseas cambiar la contraseña del usuario?</h1>
+
+    <h4><b>{{emailAdmin}}</b></h4>
+    <form [formGroup]="passForm" (ngSubmit)="changePassword()" novalidate>
+        <div mat-dialog-content>
+            <br>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 margin-div-input">
+                    <mat-form-field>
+                        <input matInput placeholder="Nueva contraseña" type="password" maxlength="255" formControlName="password" required autocomplete="new-text">
+                        <mat-error *ngIf="passForm.get('password').hasError('required')">
+                            La nueva contraseña es requerida.
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-sm-12 col-md-6 margin-div-input">
+                    <mat-form-field>
+                        <input matInput placeholder="Confirmar contraseña" maxlength="255" type="password" formControlName="confirmPassword" required autocomplete="new-text">
+                        <mat-error *ngIf="passForm.get('confirmPassword').hasError('required')">
+                            Confirmar contraseña es requerido.
+                        </mat-error>
+                        <mat-error *ngIf="passForm.get('confirmPassword').hasError('mustMatch')">
+                            Las contraseñas deben coincidir.
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+        </div>
+        <mat-dialog-actions align="end">
+            <button mat-raised-button color="primary"  style="margin-right: 5px;" class="alert-cancel" mat-dialog-close>Cancelar</button>
+            <button mat-raised-button color="primary"  class="alert-ok" type="submit">Cambiar contraseña</button>
+        </mat-dialog-actions>
+    </form>
+</ng-template>
+
+<!-- change pass modal -->
