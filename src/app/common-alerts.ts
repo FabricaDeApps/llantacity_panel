@@ -30,6 +30,13 @@ export class CommonAlerts {
     });
   }
 
+  showWarnningDuration(meesage: any, position: any = 'top-center') {
+    this._snackBar.open(meesage, "Ok", {
+      panelClass: ['snackbarwarn']
+    });
+  }
+
+
   handleError(error) {
     let errorMessage = '';    
     if (error instanceof HttpErrorResponse) {      

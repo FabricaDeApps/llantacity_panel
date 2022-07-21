@@ -89,7 +89,7 @@ export class TiresExcelComponent implements OnInit {
         this.resetData()
         this.terminateSpinner()
       } else {
-        this.comonAlerts.showWarnning(response.header.message)
+        this.comonAlerts.showWarnningDuration(response.header.message)
         this.resetData()
         this.terminateSpinner()
       }

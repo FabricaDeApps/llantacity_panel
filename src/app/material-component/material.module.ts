@@ -20,6 +20,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TiresExcelComponent } from './tires-excel/tires-excel.component';
 import { TiresComponent } from './tiresComponents/tires/tires.component';
 import { ActionsTiresComponent } from './tiresComponents/actions-tires/actions-tires.component';
+import { ProveedoresComponent } from './proveedoresComponents/proveedores/proveedores.component';
+import { ActionsProveedoresComponent } from './proveedoresComponents/actions-proveedores/actions-proveedores.component';
 
 @NgModule({
   imports: [
@@ -40,7 +42,9 @@ import { ActionsTiresComponent } from './tiresComponents/actions-tires/actions-t
     ActionsUsuariosComponent,
     TiresExcelComponent,
     TiresComponent,
-    ActionsTiresComponent
+    ActionsTiresComponent,
+    ProveedoresComponent,
+    ActionsProveedoresComponent
   ],
   exports: [
     LoadingComponent, RouterModule, NgxSpinnerModule
