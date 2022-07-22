@@ -23,4 +23,34 @@ export class ProveedoresService {
       catchError(this.handleErrors.handleError)
     );
   }
+
+  getAllProveedoresPagination(body: any): Observable<any> {
+    return this.httpClient.post(this.constantServiceProvider.server + "proveedor/getAllPagination", body, this.constantServiceProvider.getHeadersNew()).pipe(
+      catchError(this.handleErrors.handleError)
+    );
+  }
+
+  addProveedor(body: any): Observable<any> {
+    return this.httpClient.post(this.constantServiceProvider.server + "proveedor/add", body, this.constantServiceProvider.getHeadersNew()).pipe(
+      catchError(this.handleErrors.handleError)
+    );
+  }
+
+  updateProveedor(body: any): Observable<any> {
+    return this.httpClient.put(this.constantServiceProvider.server + "proveedor/update", body, this.constantServiceProvider.getHeadersNew()).pipe(
+      catchError(this.handleErrors.handleError)
+    );
+  }
+
+  changeStatus(body: any): Observable<any> {
+    return this.httpClient.put(this.constantServiceProvider.server + "proveedor/changeStatus", body, this.constantServiceProvider.getHeadersNew()).pipe(
+      catchError(this.handleErrors.handleError)
+    );
+  }
+
+  deleteProveedor(idProveedor: any): Observable<any> {
+    return this.httpClient.delete(this.constantServiceProvider.server + "proveedor/delete/" + idProveedor, this.constantServiceProvider.getHeadersNew()).pipe(
+      catchError(this.handleErrors.handleError)
+    );
+  }
 }

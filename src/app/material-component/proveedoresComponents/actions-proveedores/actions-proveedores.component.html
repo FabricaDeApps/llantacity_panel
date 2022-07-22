@@ -1,1 +1,153 @@
-<p>actions-proveedores works!</p>
+<loading *ngIf="isLoading"></loading>
+<div fxFlex.gt-sm="100%">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{titulo}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{subtitulo}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="formProveedor" (ngSubmit)="addOrUpdateProveedor()" novalidate class="example-form"
+                autocomplete="off">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Razón social" type="text" maxlength="200"
+                                formControlName="razonSocial" required autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('razonSocial').hasError('required')">
+                                La razón social es requerida
+                            </mat-error>
+                            <mat-error *ngIf="formProveedor.get('razonSocial').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Nombre comercial" type="text" maxlength="200"
+                                formControlName="nombreComercial" required autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('nombreComercial').hasError('required')">
+                                El nombre comercial es requerido
+                            </mat-error>
+                            <mat-error *ngIf="formProveedor.get('nombreComercial').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Dirección" type="text" maxlength="200"
+                                formControlName="direccion" autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('direccion').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Municipio" type="text" maxlength="200"
+                                formControlName="municipio" autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('municipio').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Estado" type="text" maxlength="200" formControlName="estado"
+                                autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('estado').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Email" type="email" maxlength="200" formControlName="email"
+                                autocomplete="new-text">
+
+                            <mat-error *ngIf="formProveedor.get('email').hasError('pattern')">
+                                Ingresa un email valido.
+                            </mat-error>
+                            <mat-error *ngIf="formProveedor.get('email').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Página web" type="text" maxlength="200"
+                                formControlName="paginaWeb" autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('paginaWeb').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>         
+
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Teléfono" type="text" maxlength="13"
+                                formControlName="telefono" autocomplete="new-text"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <mat-error *ngIf="formProveedor.get('telefono').hasError('maxlength')">
+                                La longitud máxima es de 13 caracteres
+                            </mat-error>
+                            <mat-error *ngIf="formProveedor.get('telefono').hasError('pattern')">
+                                Ingresa un teléfono valido.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Ciudad" type="text" maxlength="200"
+                                formControlName="ciudad" autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('ciudad').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Rfc" type="text" maxlength="200"
+                                formControlName="rfc" autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('rfc').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Contacto" type="text" maxlength="200"
+                                formControlName="contacto" autocomplete="new-text">
+                            <mat-error *ngIf="formProveedor.get('contacto').hasError('maxlength')">
+                                La longitud máxima es de 200 caracteres:
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <button mat-raised-button color="primary" type="button" *ngIf="isUpdate" (click)="getProveedorById()"
+                        class="buttons-cancelar"><span>Cancelar cambios</span></button>
+                    <button class="buttons-actions" mat-flat-button color="primary" type="submit"><span>{{botonAccion}}
+                            <b>Proveedor</b></span> </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

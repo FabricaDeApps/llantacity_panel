@@ -1,1 +1,56 @@
-<p>proveedores works!</p>
+<loading *ngIf="isLoading"></loading>
+<div fxFlex.gt-sm="100%">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Lista de proveedores
+                <button matTooltip="Crear nuevo proveedor" *ngIf="isLoaded"  routerLink="/proveedores/nuevo" class="button-add" mat-raised-button color="accent">
+                    <mat-icon class="color_amar">add_box</mat-icon> <span>Añadir</span>
+                </button>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="empty-data mat-elevation-z8" *ngIf="proveedores.length == 0 && isLoaded">
+                <br>
+                <h3>Aún no has creado ningún proveedor</h3>
+                <button class="buttons-actions empty-button" routerLink="/proveedores/nuevo" mat-flat-button color="primary" type="submit"><span>Añadir <b>Usuario</b></span> </button>
+            </div>
+            <div class="example-container mat-elevation-z8" *ngIf="proveedores.length > 0">
+                <mat-table [dataSource]="proveedores">
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> Nombre comercial </mat-header-cell>
+                        <mat-cell data-label="Nombre comercial" *matCellDef="let element"> {{element.nombreComercial}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="razon">
+                        <mat-header-cell *matHeaderCellDef> Razón social </mat-header-cell>
+                        <mat-cell data-label="Razón social" *matCellDef="let element"> {{element.razonSocial}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                        <mat-cell data-label="Acciones" *matCellDef="let element">
+
+                            <mat-checkbox color="primary" matTooltip="Activar o desactivar" (change)="dialogChangeStatus($event, element)" [checked]="element.active">
+                            </mat-checkbox>
+
+                            <button mat-icon-button color="accent" matTooltip="Editar o ver datos" (click)="goToEditProveedor(element.idProveedor)">
+                                <mat-icon class="mat-18 material-icons color_green">border_color</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="accent" matTooltip="Eliminar" (click)="openDialogDelete(element)">
+                                <mat-icon class="mat-18 material-icons color_red">delete</mat-icon>
+                            </button>                            
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator *ngIf="proveedores.length > 0" #paginator [length]="totalLength" [pageIndex]="pageIndex" [pageSize]="limit" [pageSizeOptions]="pageLimit" (page)="changePage($event)">
+                </mat-paginator>
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>
+</div>
